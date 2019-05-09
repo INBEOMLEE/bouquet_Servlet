@@ -1,0 +1,137 @@
+-- bouquet 프로젝트 dummy 데이터 생성 --
+
+ 
+
+-- 상품 sequence --
+
+DROP SEQUENCE seq_product;
+
+CREATE SEQUENCE seq_product
+
+    START WITH 1
+
+    INCREMENT BY 1  
+
+    NOCYCLE;
+
+ 
+
+-- 상품테이블 --
+
+DROP TABLE tbl_product;
+
+CREATE TABLE tbl_product(
+
+    p_code VARCHAR2(5) PRIMARY KEY,
+    
+    p_type VARCHAR2(50) NOT NULL,
+
+    p_name VARCHAR2(100) NOT NULL,
+
+    p_price NUMBER NOT NULL,
+
+    p_img VARCHAR2(100),
+
+    p_cnt NUMBER DEFAULT 0,
+
+    p_good NUMBER DEFAULT 0,
+
+    p_indate DATE DEFAULT SYSDATE
+
+);
+
+ 
+
+INSERT INTO tbl_product(p_code, p_type, p_name, p_price, p_img, p_cnt, p_good)
+
+VALUES(seq_product.NEXTVAL, '천천히봄', '순수_1', 50000, 'spring01.jpg', 3, 4);
+
+INSERT INTO tbl_product(p_code, p_type, p_name, p_price, p_img, p_cnt, p_good)
+
+VALUES(seq_product.NEXTVAL, '여름다운', '희망_1', 50000, 'spring02.jpg', 2, 2);
+
+INSERT INTO tbl_product(p_code, p_type, p_name, p_price, p_img, p_cnt, p_good)
+
+VALUES(seq_product.NEXTVAL, '색색가을', '열정_1', 50000, 'spring03.jpg', 3, 3);
+
+INSERT INTO tbl_product(p_code, p_type, p_name, p_price, p_img, p_cnt, p_good)
+
+VALUES(seq_product.NEXTVAL, '겨울눈꽃', '소망_1', 50000, 'spring04.jpg', 3, 7);
+
+
+INSERT INTO tbl_product(p_code, p_type, p_name, p_price, p_img, p_cnt, p_good)
+
+VALUES(seq_product.NEXTVAL, '천천히봄', '순수_2', 75000, 'spring05.jpg', 1, 10);
+
+INSERT INTO tbl_product(p_code, p_type, p_name, p_price, p_img, p_cnt, p_good)
+
+VALUES(seq_product.NEXTVAL, '여름다운', '희망_2', 75000, 'spring06.jpg', 2, 8);
+
+INSERT INTO tbl_product(p_code, p_type, p_name, p_price, p_img, p_cnt, p_good)
+
+VALUES(seq_product.NEXTVAL, '색색가을', '열정_2', 75000, 'spring07.jpg', 3, 7);
+
+INSERT INTO tbl_product(p_code, p_type, p_name, p_price, p_img, p_cnt, p_good)
+
+VALUES(seq_product.NEXTVAL, '겨울눈꽃', '소망_2', 75000, 'spring08.jpg', 4, 4);
+
+
+INSERT INTO tbl_product(p_code, p_type, p_name, p_price, p_img, p_cnt, p_good)
+
+VALUES(seq_product.NEXTVAL, '천천히봄', '순수_3', 100000, 'spring09.jpg', 3, 10);
+
+INSERT INTO tbl_product(p_code, p_type, p_name, p_price, p_img, p_cnt, p_good)
+
+VALUES(seq_product.NEXTVAL, '여름다운', '희망_3', 100000, 'Hot_product01.jpg', 1, 12);
+
+INSERT INTO tbl_product(p_code, p_type, p_name, p_price, p_img, p_cnt, p_good)
+
+VALUES(seq_product.NEXTVAL, '색색가을', '열정_3', 100000, 'Hot_product02.jpg', 3, 8);
+
+INSERT INTO tbl_product(p_code, p_type, p_name, p_price, p_img, p_cnt, p_good)
+
+VALUES(seq_product.NEXTVAL, '겨울눈꽃', '소망_3', 100000, 'Hot_product03.jpg', 2, 1);
+
+INSERT INTO tbl_product(p_code, p_type, p_name, p_price, p_img, p_cnt, p_good)
+
+
+VALUES(seq_product.NEXTVAL, '천천히봄', '순수_4', 120000, 'Hot_product04.jpg', 3, 11);
+
+INSERT INTO tbl_product(p_code, p_type, p_name, p_price, p_img, p_cnt, p_good)
+
+VALUES(seq_product.NEXTVAL, '여름다운', '희망_4', 120000, 'Hot_product05.jpg', 1, 13);
+
+INSERT INTO tbl_product(p_code, p_type, p_name, p_price, p_img, p_cnt, p_good)
+
+VALUES(seq_product.NEXTVAL, '색색가을', '열정_4', 120000, 'Hot_product06.jpg', 3, 15);
+
+INSERT INTO tbl_product(p_code, p_type, p_name, p_price, p_img, p_cnt, p_good)
+
+VALUES(seq_product.NEXTVAL, '겨울눈꽃', '소망_4', 120000, 'New_product01.jpg', 2, 15);
+
+
+
+
+
+-- best 상품 6건 추출 --
+
+SELECT * 
+
+FROM(SELECT * FROM tbl_product
+
+     ORDER BY p_good DESC)
+
+WHERE ROWNUM <= 6;
+
+
+
+
+-- new 상품 6건 추출 --
+
+SELECT * 
+
+FROM(SELECT * FROM tbl_product
+
+     ORDER BY p_indate DESC)
+
+WHERE ROWNUM <= 6;
