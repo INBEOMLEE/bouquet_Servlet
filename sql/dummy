@@ -135,3 +135,31 @@ FROM(SELECT * FROM tbl_product
      ORDER BY p_indate DESC)
 
 WHERE ROWNUM <= 6;
+
+-- bouquet 회원 테이블 생성 -- 
+DROP TABLE tbl_member;
+CREATE TABLE tbl_member(
+    bid VARCHAR2(30) PRIMARY KEY,
+    bpw VARCHAR2(30) NOT NULL,
+    bname VARCHAR2(30) NOT NULL,
+    bphone VARCHAR2(30) NOT NULL,
+    bemail VARCHAR2(50) NOT NULL,
+    bzipcode VARCHAR2(20) NOT NULL,
+    baddr1 VARCHAR2(200) NOT NULL,
+    baddr2 VARCHAR2(200) NOT NULL,
+    regdate DATE DEFAULT SYSDATE
+);
+
+SELECT * FROM tbl_member;
+
+
+INSERT INTO tbl_member(bid, bpw, bname, bphone, bemail, bzipcode, baddr1, baddr2)
+VALUES('user01', '1234', '유저1', '01011111111', 'user01@gmail.com', '506111', '광주광역시 광산구', '주공아파트');
+INSERT INTO tbl_member(bid, bpw, bname, bphone, bemail, bzipcode, baddr1, baddr2)
+VALUES('user02', '1234', '유저2', '01022222222', 'user02@gmail.com', '506222', '광주광역시 서구', '모아엘가');
+INSERT INTO tbl_member(bid, bpw, bname, bphone, bemail, bzipcode, baddr1, baddr2)
+VALUES('user03', '1234', '유저3', '01033333333', 'user03@gmail.com', '506333', '광주광역시 동구', '자이');
+
+COMMIT;
+
+DESC tbl_member;
