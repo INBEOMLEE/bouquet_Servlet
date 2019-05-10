@@ -15,6 +15,7 @@ import com.bouquet.action.ConstractAction;
 import com.bouquet.action.IdCheckAction;
 import com.bouquet.action.IndexAction;
 import com.bouquet.action.MemberAction;
+import com.bouquet.action.MemberPlayAction;
 
 
 
@@ -32,12 +33,19 @@ public class FrontController extends HttpServlet {
 		Action action = null;
 		ActionForward forward = null;
 		
+		// 13. uri에서 ctx를 빼고 남은 url 주소를 command 변수에 담음
+		//     실행: /bouquet/idCheck.bouquet
+		//        - /bouquet
+		// ----------------------------------------------
+		//        = /idCheck.bouquet (결과 값을 command에 담음)
 		String uri = request.getRequestURI(); 
 		String ctx = request.getContextPath();
 		String command = uri.substring(ctx.length());
 		
 		System.out.println("페이지 이동 ===>" + command);
 		
+		// 14. 생성된 command 조건에 맞는 if문 실행
+		//     command = /idCheck.bouquet
 		if(command.equals("/index.bouquet")) {
 			action = new IndexAction();
 			forward = action.excute(request, response);
@@ -48,9 +56,19 @@ public class FrontController extends HttpServlet {
 			action = new MemberAction();
 			forward = action.excute(request, response);
 		} else if(command.equals("/idCheck.bouquet")) {
+			// 15. IdCheckAction 클래스 객체 생성
+			//     결과물 : action 인스턴스
+			//     action 인스턴스를 활용하여 excute() 메서드 실행
+			//     매개변수로 Controller의 request와 response를 전송
+			//     이동 : IdCheckAction 클래스의 excute() 메서드로 이동
 			action = new IdCheckAction();
 			forward = action.excute(request, response);
+		} else if(command.equals("/memberPlay.bouquet")) {
+			action = new MemberPlayAction();
+			forward = action.excute(request, response);
 		}
+		
+		
 		if(forward != null) {
 			if(forward.isRedirect()) {
 				// page 전환 시 redirect 방식

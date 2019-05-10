@@ -10,10 +10,15 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
+  	<!-- 12. url이 *.bouquet로 끝나는 경우 이동하는 FrontController의 경로를 정의 -->
+  	<!--     "com.bouquet.controller.FrontController"로 이동 -->
     <servlet-name>FrontController</servlet-name>
     <servlet-class>com.bouquet.controller.FrontController</servlet-class>
   </servlet>
   <servlet-mapping>
+  	<!-- 11. url의 끝부분이 .bouquet로 끝나면 FrontController로 이동 -->
+  	<!--     url이 idCheck.bouquet 이므로 FrontController로 이동 -->
+  	<!--     FrontController의 경로를 알 수 없으므로 그 설정 파일을 필요로 함 -->
     <servlet-name>FrontController</servlet-name>
     <url-pattern>*.bouquet</url-pattern>
   </servlet-mapping>
