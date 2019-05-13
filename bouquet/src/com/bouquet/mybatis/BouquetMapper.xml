@@ -31,4 +31,9 @@
 		INSERT INTO tbl_member(bid, bpw, bname, bphone, bemail, bzipcode, baddr1, baddr2)
 		VALUES(#{bid}, #{bpw}, #{bname}, #{bphone}, #{bemail}, #{bzipcode}, #{baddr1}, #{baddr2})
 	</insert>
+	
+	<select id="loginCheck" parameterType="com.bouquet.dto.MemberDTO" resultType="com.bouquet.dto.MemberDTO">
+		SELECT * FROM tbl_member
+		WHERE bid = #{bid} AND bpw = #{bpw}
+	</select>
 </mapper>

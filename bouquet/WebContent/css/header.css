@@ -112,6 +112,7 @@ li:nth-child(odd) {
 
 .nav_search>a>i {
 	margin-top: 10px;
+	color: white;
 }
 
 .nav_inline>ul {
@@ -303,13 +304,13 @@ li:nth-child(odd) {
 	border: 1px solid #3B5998;
 }
 
-.err_code {
-	color: #ff1616;
+.err_msg {
+	text-align: center;
+	color: tomato;
 	font-size: 13px;
-	line-height: 16px;
-	margin: 0px 0 12px 5px;
+	letter-spacing: -1;
+	margin: 14px;
 	display: none;
-	padding-top: 2px;
 }
 
 #modal_close {

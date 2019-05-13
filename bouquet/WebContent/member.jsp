@@ -19,6 +19,13 @@
 		text-align: center;
 		background-color: white;
 	}
+	.member_title {
+		font-size: 50px;
+		font-weight: 700;
+		margin: 35px 0;
+		color: #5A5A5A;
+		letter-spacing: -1;
+	}
 	.join_menu {
 		/*border: 1px solid black;*/
 		width: 550px;
@@ -150,6 +157,7 @@
 	<section>
 		<div class="section">
 			<div class="inner_section">
+				<div class="member_title">회원 가입</div>
 				<form action="memberPlay.bouquet" class="form" method="POST" id="frm_mem" name="frm_mem">
 					<!-- 아이디 -->
 					<div class=join_menu>

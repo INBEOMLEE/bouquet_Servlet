@@ -14,6 +14,9 @@ import com.bouquet.action.ActionForward;
 import com.bouquet.action.ConstractAction;
 import com.bouquet.action.IdCheckAction;
 import com.bouquet.action.IndexAction;
+import com.bouquet.action.LoginAjaxAction;
+import com.bouquet.action.LoginOutAction;
+import com.bouquet.action.LoginOutAjaxAction;
 import com.bouquet.action.MemberAction;
 import com.bouquet.action.MemberPlayAction;
 
@@ -65,6 +68,12 @@ public class FrontController extends HttpServlet {
 			forward = action.excute(request, response);
 		} else if(command.equals("/memberPlay.bouquet")) {
 			action = new MemberPlayAction();
+			forward = action.excute(request, response);
+		} else if(command.equals("/login.bouquet")) {
+			action = new LoginAjaxAction();
+			forward = action.excute(request, response);
+		} else if(command.equals("/loginOut.bouquet")) {
+			action = new LoginOutAjaxAction();
 			forward = action.excute(request, response);
 		}
 		
