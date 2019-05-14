@@ -67,6 +67,9 @@
 								( ${sessionScope.loginUser.bid} )
 							</a>
 							<a href="#" class="logout_btn">로그아웃</a>
+							<a href="${path}/pwUpdate.bouquet">비밀번호 수정</a>
+							<a href="${path}/infoUpdate.bouquet">회원정보 수정</a>
+							<a href="${path}/dropMember.bouquet">회원 탈퇴</a>
 						</c:otherwise>
 					</c:choose>
 					<a href="#">고객센터</a>
@@ -83,7 +86,8 @@
 		<div class="nav_outline">
 			<div class="nav_inline">
 				<ul>
-					<li><a href="#">천천히봄</a>
+					<li>
+						<a href="#">천천히봄</a>
 						<div class="dropdown01">
 							<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">BEST</a>
 							<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">SPECIAL</a>
@@ -91,7 +95,8 @@
 							<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">NOBLESS</a>
 						</div>
 					</li>
-					<li><a href="#">여름다운</a>
+					<li>
+						<a href="#">여름다운</a>
 						<div class="dropdown01">
 							<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">BEST</a>
 							<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">SPECIAL</a>
@@ -99,7 +104,8 @@
 							<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">NOBLESS</a>
 						</div>
 					</li>
-					<li><a href="#">색색가을</a>
+					<li>
+						<a href="#">색색가을</a>
 						<div class="dropdown01">
 							<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">BEST</a>
 							<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">SPECIAL</a>
@@ -107,7 +113,8 @@
 							<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">NOBLESS</a>
 						</div>
 					</li>
-					<li><a href="#">겨울눈꽃</a>
+					<li>
+						<a href="#">겨울눈꽃</a>
 						<div class="dropdown01">
 							<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">BEST</a>
 							<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">SPECIAL</a>
@@ -174,9 +181,10 @@
 					}
 				});
 			});
+			
 			$('.logout_btn').click(function(){
 				$.ajax({
-					url: "loginOut.bouquet",
+					url: "logOutAjax.bouquet",
 					type: "POST",
 					dataType: "json",
 					data: "",

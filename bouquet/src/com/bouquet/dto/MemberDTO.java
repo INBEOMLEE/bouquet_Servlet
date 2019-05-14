@@ -17,7 +17,19 @@ public class MemberDTO {
 	}
 	
 	
-	
+	public MemberDTO(String bid, String bname, String bphone, String bemail, String bzipcode, String baddr1,
+			String baddr2) {
+		super();
+		this.bid = bid;
+		this.bname = bname;
+		this.bphone = bphone;
+		this.bemail = bemail;
+		this.bzipcode = bzipcode;
+		this.baddr1 = baddr1;
+		this.baddr2 = baddr2;
+	}
+
+
 	public MemberDTO(String bid, String bpw, String bname, String bphone, String bemail, String bzipcode, String baddr1,
 			String baddr2) {
 		super();

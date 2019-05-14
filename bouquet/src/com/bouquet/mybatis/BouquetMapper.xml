@@ -36,4 +36,25 @@
 		SELECT * FROM tbl_member
 		WHERE bid = #{bid} AND bpw = #{bpw}
 	</select>
+	
+	<update id="mem_update" parameterType="com.bouquet.dto.MemberDTO">
+		UPDATE tbl_member
+		SET bname = #{bname},
+		    bphone = #{bphone},
+		    bemail = #{bemail},
+		    bzipcode = #{bzipcode}, 
+		    baddr1 = #{baddr1},
+		    baddr2 = #{baddr2}
+		WHERE bid = #{bid}
+	</update>
+	
+	<select id="mem_select" parameterType="String" resultType="com.bouquet.dto.MemberDTO">
+		SELECT * FROM tbl_member
+		WHERE bid = #{id}
+	</select>
+	
+	<select id="pwCheck" parameterType="hashmap" resultType="int">
+		SELECT COUNT(*) FROM tbl_member
+		WHERE bid = #{id} AND bpw = #{pw}
+	</select>
 </mapper>

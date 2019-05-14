@@ -7,29 +7,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONObject;
-
-public class LoginOutAjaxAction implements Action {
+public class InfoUpdateAction implements Action{
 
 	@Override
 	public ActionForward excute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String url = "info_update.jsp";
+		
+		// 로그인 된 유저만 회원수정 가능
 		HttpSession session = request.getSession();
-		String message = "";
-		if(session != null) {
-			session.invalidate();
-			message = "1";
-		} else {
-			message = "-1";
+		
+		// 로그인 상태가 아니라면 index 페이지로 돌려보냄
+		if(session.getAttribute("loginUser") == null) {
+			url = "index.bouquet";
 		}
 		
-		JSONObject jObj = new JSONObject();
-		jObj.put("message", message);
-		response.setContentType("application/x-json; charset=UTF-8");
-		response.getWriter().print(jObj);
+		ActionForward forward = new ActionForward();
+		forward.setPath(url);
+		forward.setRedirect(false);
 		
-		
-		return null;
+		return forward;
 	}
 
 }

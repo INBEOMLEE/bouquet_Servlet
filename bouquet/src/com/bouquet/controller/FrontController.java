@@ -14,11 +14,15 @@ import com.bouquet.action.ActionForward;
 import com.bouquet.action.ConstractAction;
 import com.bouquet.action.IdCheckAction;
 import com.bouquet.action.IndexAction;
+import com.bouquet.action.InfoUpdateAction;
+import com.bouquet.action.InfoUpdatePlayAction;
 import com.bouquet.action.LoginAjaxAction;
 import com.bouquet.action.LoginOutAction;
-import com.bouquet.action.LoginOutAjaxAction;
+import com.bouquet.action.LogOutAjaxAction;
 import com.bouquet.action.MemberAction;
 import com.bouquet.action.MemberPlayAction;
+import com.bouquet.action.PwCheckAction;
+import com.bouquet.action.PwUpdatePlayAction;
 
 
 
@@ -73,7 +77,22 @@ public class FrontController extends HttpServlet {
 			action = new LoginAjaxAction();
 			forward = action.excute(request, response);
 		} else if(command.equals("/loginOut.bouquet")) {
-			action = new LoginOutAjaxAction();
+			action = new LoginOutAction();
+			forward = action.excute(request, response);
+		} else if(command.equals("/logOutAjax.bouquet")) {
+			action = new LogOutAjaxAction();
+			forward = action.excute(request, response);
+		} else if(command.equals("/infoUpdate.bouquet")) {
+			action = new InfoUpdateAction();
+			forward = action.excute(request, response);
+		} else if(command.equals("/infoUpdatePlay.bouquet")) {
+			action = new InfoUpdatePlayAction();
+			forward = action.excute(request, response);
+		} else if(command.equals("/pwUpdate.bouquet")) {
+			action = new PwUpdatePlayAction();
+			forward = action.excute(request, response);
+		} else if(command.equals("/pwCheck.bouquet")) {
+			action = new PwCheckAction();
 			forward = action.excute(request, response);
 		}
 		
@@ -89,5 +108,4 @@ public class FrontController extends HttpServlet {
 			}
 		}
 	}
-
 }

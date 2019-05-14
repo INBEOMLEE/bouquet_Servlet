@@ -16,7 +16,7 @@
 		width: 1440px;
 		height: auto;
 		margin: 0 auto;
-		text-align: center;
+		text-align: center; 
 		background-color: white;
 	}
 	.pwupdate_title {
@@ -127,7 +127,7 @@
 							<label for="pw">비밀번호</label>
 						</div>
 						<input type="password" name="pw" id="pw" class="input_box" maxlength="20" placeholder="현재 비밀번호">
-						<span class="err_msg">올바른 값을 입력해주세요.</span>
+						<span class="error_message">올바른 값을 입력해주세요.</span>
 						<div class="explanation">
 							<span>영어와 숫자를 조합하여<br> 4~12자 이내로 입력해주세요.</span>
 						</div>
@@ -138,7 +138,7 @@
 							<label for="new_pw">새 비밀번호</label>
 						</div>
 						<input type="password" name="new_pw" id="new_pw" class="input_box" maxlength="20" placeholder="새 비밀번호">
-						<span class="err_msg">올바른 값을 입력해주세요.</span>
+						<span class="error_message">올바른 값을 입력해주세요.</span>
 						<div class="explanation">
 							<span>영어와 숫자를 조합하여<br> 4~12자 이내로 입력해주세요.</span>
 						</div>
@@ -149,7 +149,7 @@
 							<label for="new_repw">새 비밀번호 재확인</label>
 						</div>
 						<input type="password" name="new_repw" id="new_repw" class="input_box" maxlength="20" placeholder="새 비밀번호 재확인">
-						<span class="err_msg">올바른 값을 입력해주세요.</span>
+						<span class="error_message">올바른 값을 입력해주세요.</span>
 						<div class="explanation">
 							<span>위에 입력하셨던 비밀번호와<br> 동일하게 입력해주세요.</span>
 						</div>
@@ -168,29 +168,29 @@
 		$(document).ready(function(){
 			
 			$('#pw').blur(function(){
-				var pw = $.trim($(this).val());
-				var regEmpty = /\s/g;
-				var pwReg = RegExp(/^[a-zA-Z0-9]{4,12}$/);
-				
-				if(pw == "" || pw.length == 0) {
-					$('.err_msg').eq(0).text('필수입력 정보입니다.')
-					   				   .css('display', 'block')
-					  				   .css('color', 'tomato');
-					return false;
-				} else if(pw.match(regEmpty)) {
-					$('.err_msg').eq(0).text('공백 없이 입력해주세요.')
-	                                   .css('display', 'block')
-	                                   .css('color', 'tomato');
-					return false;
-				} else if(!pwReg.test(pw)) {
-					$('.err_msg').eq(0).text('올바른 비밀번호를 입력해주세요.')
-									   .css('display', 'block')
-									   .css('color', 'tomato');
-					return false;
-				} else {
-					$('.err_msg').eq(0).text('사용 가능한 비밀번호입니다.')
-									   .css('display', 'block')
-									   .css('color', 'dodgerblue');
+				var nowPw = $("#pw").val();
+				var nowId = "${sessionScope.loginUser.bid}";
+				if(nowPw != null || nowPw.length != 0) {
+					$.ajax({
+						url: "pwCheck.bouquet",
+						type: "POST",
+						dataType: "json",
+						data: "id=" + nowId + "&pw=" + nowPw,
+						success: function(data) {
+							if(data.flag) {
+								$('.error_message').eq(0).text('입력하신 비밀번호가 현재 비밀번호와 일치합니다.')
+                               						     .css('display', 'block')
+                                                         .css('color', 'dodgerblue');
+							} else {
+								$('.error_message').eq(0).text('입력하신 비밀번호가 현재 비밀번호와 일치하지 않습니다.')
+      						                             .css('display', 'block')
+                                                         .css('color', 'tomato');
+							}
+						},
+						error:function() {
+							alert("System Error♨");
+						}
+					});
 				}
 			});
 			
@@ -200,29 +200,29 @@
 				var pwReg = RegExp(/^[a-zA-Z0-9]{4,12}$/);
 				
 				if(pw == "" || pw.length == 0) {
-					$('.err_msg').eq(1).text('필수입력 정보입니다.')
+					$('.error_message').eq(1).text('필수입력 정보입니다.')
 					   				   .css('display', 'block')
 					  				   .css('color', 'tomato');
 					return false;
 				} else if(pw.match(regEmpty)) {
-					$('.err_msg').eq(1).text('공백 없이 입력해주세요.')
+					$('.error_message').eq(1).text('공백 없이 입력해주세요.')
 	                                   .css('display', 'block')
 	                                   .css('color', 'tomato');
 					return false;
 				} else if(!pwReg.test(pw)) {
-					$('.err_msg').eq(1).text('올바른 비밀번호를 입력해주세요.')
+					$('.error_message').eq(1).text('올바른 비밀번호를 입력해주세요.')
 									   .css('display', 'block')
 									   .css('color', 'tomato');
 					return false;
 				} else {
-					$('.err_msg').eq(1).text('사용 가능한 비밀번호입니다.')
+					$('.error_message').eq(1).text('사용 가능한 비밀번호입니다.')
 									   .css('display', 'block')
 									   .css('color', 'dodgerblue');
 					
 					var repw = $.trim($('#new_repw').val());
 					if(repw != null || repw.length != 0) {	
 						if(pw == repw) {
-							$('.err_msg').eq(2).text('사용 가능한 비밀번호입니다.')
+							$('.error_message').eq(2).text('사용 가능한 비밀번호입니다.')
 							  				   .css('display', 'block')
 							  				   .css('color', 'dodgerblue');
 						}
@@ -237,27 +237,27 @@
 				var pwReg = RegExp(/^[a-zA-Z0-9]{4,12}$/);
 				
 				if(repw == "" || repw.length == 0) {
-					$('.err_msg').eq(2).text('필수입력 정보입니다.')
+					$('.error_message').eq(2).text('필수입력 정보입니다.')
 					   				   .css('display', 'block')
 					  				   .css('color', 'tomato');
 					return false;
 				} else if(repw.match(regEmpty)) {
-					$('.err_msg').eq(2).text('공백 없이 입력해주세요.')
+					$('.error_message').eq(2).text('공백 없이 입력해주세요.')
 	                                   .css('display', 'block')
 	                                   .css('color', 'tomato');
 					return false;
 				} else if(!pwReg.test(repw)) {
-					$('.err_msg').eq(2).text('올바른 비밀번호를 입력해주세요.')
+					$('.error_message').eq(2).text('올바른 비밀번호를 입력해주세요.')
 									   .css('display', 'block')
 									   .css('color', 'tomato');
 					return false;
 				} else if(pw != repw){
-					$('.err_msg').eq(2).text('입력하신 비밀번호가 일치하지 않습니다.')
+					$('.error_message').eq(2).text('입력하신 비밀번호가 일치하지 않습니다.')
 									   .css('display', 'block')
 									   .css('color', 'tomato');
 					return false;
 				} else {
-					$('.err_msg').eq(2).text('사용 가능한 비밀번호입니다.')
+					$('.error_message').eq(2).text('사용 가능한 비밀번호입니다.')
 									   .css('display', 'block')
 									   .css('color', 'dodgerblue');
 				}
