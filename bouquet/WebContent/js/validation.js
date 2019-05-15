@@ -123,18 +123,20 @@ var joinValidate = {
 		} else if(!pwReg.test(memPw)) {
 			return this.resultCode.invalid_pw;
 		} else {
-			if(memRepw != "" || memRepw.length != 0) {	
-				if(memPw == memRepw) {
-					$('.err_msg').eq(2).text(this.resultCode.success_pw.desc)
-					  				   .css('display', 'block')
-					  				   .css('color', 'dodgerblue');
-				} else {
-					$('.err_msg').eq(2).text(this.resultCode.other_pw.desc)
-					  				   .css('display', 'block')
-					  				   .css('color', 'dodgerblue');
-					return false;
-				}
-			}
+			return this.resultCode.success_pw;
+		}
+	},
+	checkRepw : function(memPw, memRepw) {
+		var regEmpty = /\s/g;
+		var pwReg = RegExp(/^[a-zA-Z0-9]{4,12}$/);
+		
+		if(memRepw == "" || memRepw.length == 0) {
+			return this.resultCode.empty_val;
+		} else if(memRepw.match(regEmpty)) {
+			return this.resultCode.space_length_val;
+		} else if(!pwReg.test(memRepw)) {
+			return this.resultCode.invalid_pw;
+		} else {
 			return this.resultCode.success_pw;
 		}
 	}
@@ -176,4 +178,33 @@ function ajaxCheck(memId) {
 			alert("System Error!!!");
 		} 
 	});
+}
+
+function ajaxPwCheck(nowId, nowPw) {
+	var return_val = false;
+	$.ajax({
+		url: "pwCheck.bouquet",
+		type: "POST",
+		dataType: "json",
+		data: "id=" + nowId + "&pw=" + nowPw,
+		async: false,
+		success: function(data) {
+			if(data.flag) {
+				$('.pwAjax').eq(0).text('비밀번호가 일치합니다.')
+               						     .css('display', 'block')
+                                         .css('color', 'dodgerblue');
+				return_val = true;
+			} else {
+				$('.pwAjax').eq(0).text('비밀번호가 일치하지 않습니다.')
+				                             .css('display', 'block')
+                                         .css('color', 'tomato');
+				return_val = false;
+			}
+		},
+		error:function() {
+			alert("System Error♨");
+		}
+		
+	});
+	return return_val;
 }

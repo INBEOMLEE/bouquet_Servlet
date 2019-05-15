@@ -197,19 +197,19 @@
 			<div class="inner_section">
 				<div class="delete_title">회원 탈퇴</div>
 				<div class="delete_content">
-					<div class="content_title"><span>"님"</span> 회원 탈퇴 시 아래의 조치가 취해집니다.</div>
+					<div class="content_title"><span>"${sessionScope.loginUser.bname}"님</span> 회원 탈퇴 시 아래의 조치가 취해집니다.</div>
 					<div class="content">1. 계정 정보는 <span>'개인 정보 보호 정책'에 따라 60일간 보관(잠김) 되며,</span> 60일이 경과된 후 모든 개인 정보는 완전히 삭제되며 더 이상 복구할 수 없게 됩니다.</div>
 					<div class="content">2. 작성된 게시물은 삭제되지 않으며, 익명 처리 후 <span>BOUQUET로 소유권이 귀속</span>됩니다.</div>
 					<div class="content">3. 게시물 삭제가 필요한 경우에는 <span>관리자(dlsqja112@bouquet.co.kr)</span>로 문의해 주시기 바랍니다.</div>
 				</div>
-				<form class="form" method="POST" action="">
+				<form class="form" method="POST" action="dropMemberPlay.bouquet" id="frm_mem">
 					<!-- 비밀번호 -->
 					<div class=join_menu>
 						<div class="join_minititle">
 							<label for="pw">비밀번호</label>
 						</div>
 						<input type="password" name="pw" id="pw" class="input_box" maxlength="20" placeholder="비밀번호를 입력해주세요.">
-						<span class="err_msg">올바른 값을 입력해주세요.</span>
+						<span class="pwAjax">올바른 값을 입력해주세요.</span>
 					</div>
 				</form>
 				<div class="btn_box">
@@ -219,44 +219,32 @@
 			</div>
 		</div>
 	</section>
+	<script type="text/javascript" src="js/validation.js"></script>
 	<script type="text/javascript">
-	
 		$(document).ready(function(){
-		
+			var state = false;
 			$('#pw').blur(function(){
-				var pw = $.trim($(this).val());
-				var regEmpty = /\s/g;
-				var pwReg = RegExp(/^[a-zA-Z0-9]{4,12}$/);
+				var nowId = "${sessionScope.loginUser.bid}";
+				var nowPw = $("#pw").val();
 				
-				if(pw == "" || pw.length == 0) {
-					$('.err_msg').eq(0).text('필수입력 정보입니다.')
-					   				   .css('display', 'block')
-					  				   .css('color', 'tomato');
-					return false;
-				} else if(pw.match(regEmpty)) {
-					$('.err_msg').eq(0).text('공백 없이 입력해주세요.')
-	                                   .css('display', 'block')
-	                                   .css('color', 'tomato');
-					return false;
-				} else if(!pwReg.test(pw)) {
-					$('.err_msg').eq(0).text('올바른 비밀번호를 입력해주세요.')
-									   .css('display', 'block')
-									   .css('color', 'tomato');
-					return false;
-				} else {
-					$('.err_msg').eq(0).text('사용 가능한 비밀번호입니다.')
-									   .css('display', 'block')
-									   .css('color', 'dodgerblue');
-				}
+				state = ajaxPwCheck(nowId, nowPw);
 				
 			});
 			
 			$('.delete_btn').click(function(){
-				$('#modal').css('display', 'flex');
+				if(state) {
+					$('#modal').css('display', 'flex');
+				} else {
+					$('#pw').focus();
+				}
 			});
 			
 			$('.no_btn').click(function(){
 				$('#modal').css('display', 'none');
+			});
+			
+			$('.yes_btn').click(function(){
+				$('#frm_mem').submit();
 			});
 			
 		});

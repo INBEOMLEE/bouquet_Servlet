@@ -57,4 +57,15 @@
 		SELECT COUNT(*) FROM tbl_member
 		WHERE bid = #{id} AND bpw = #{pw}
 	</select>
+	
+	<update id="pwUpdate" parameterType="com.bouquet.dto.MemberDTO">
+		UPDATE tbl_member
+		SET bpw = #{bpw}
+		WHERE bid = #{bid}
+	</update>
+	
+	<delete id="mem_delete" parameterType="String">
+		DELETE FROM tbl_member
+		WHERE bid = #{bid}
+	</delete>
 </mapper>

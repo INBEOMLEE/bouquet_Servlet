@@ -12,7 +12,7 @@ public class MemberDAO {
 	SqlSessionFactory sqlSessionFactory = SqlMapConfig.getSqlSession();
 	SqlSession sqlSession;
 	int result = 0;
-	MemberDTO mDto;
+	MemberDTO mDto = new MemberDTO();
 	boolean flag = false;
 	
 	private MemberDAO() {}
@@ -116,5 +116,36 @@ public class MemberDAO {
 			sqlSession.close();
 		}
 		return flag;
+	}
+	
+	public int pwUpdate(String bid, String bpw) {
+		
+		sqlSession = sqlSessionFactory.openSession(true);
+		
+		mDto.setBid(bid);
+		mDto.setBpw(bpw);
+		
+		try {
+			result = sqlSession.update("pwUpdate", mDto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return result;
+	}
+	
+	public int mem_delete(String bid) {
+		
+		sqlSession = sqlSessionFactory.openSession(true);
+		
+		try {
+			result = sqlSession.delete("mem_delete", bid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return result;
 	}
 }

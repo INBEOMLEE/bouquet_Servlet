@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.bouquet.action.Action;
 import com.bouquet.action.ActionForward;
 import com.bouquet.action.ConstractAction;
+import com.bouquet.action.DropMemberAction;
+import com.bouquet.action.DropMemberPlayAction;
 import com.bouquet.action.IdCheckAction;
 import com.bouquet.action.IndexAction;
 import com.bouquet.action.InfoUpdateAction;
@@ -22,6 +24,7 @@ import com.bouquet.action.LogOutAjaxAction;
 import com.bouquet.action.MemberAction;
 import com.bouquet.action.MemberPlayAction;
 import com.bouquet.action.PwCheckAction;
+import com.bouquet.action.PwUpdateAction;
 import com.bouquet.action.PwUpdatePlayAction;
 
 
@@ -89,10 +92,19 @@ public class FrontController extends HttpServlet {
 			action = new InfoUpdatePlayAction();
 			forward = action.excute(request, response);
 		} else if(command.equals("/pwUpdate.bouquet")) {
-			action = new PwUpdatePlayAction();
+			action = new PwUpdateAction();
 			forward = action.excute(request, response);
 		} else if(command.equals("/pwCheck.bouquet")) {
 			action = new PwCheckAction();
+			forward = action.excute(request, response);
+		} else if(command.equals("/pwUpdatePlay.bouquet")) {
+			action = new PwUpdatePlayAction();
+			forward = action.excute(request, response);
+		} else if(command.equals("/dropMember.bouquet")) {
+			action = new DropMemberAction();
+			forward = action.excute(request, response);
+		} else if(command.equals("/dropMemberPlay.bouquet")) {
+			action = new DropMemberPlayAction();
 			forward = action.excute(request, response);
 		}
 		

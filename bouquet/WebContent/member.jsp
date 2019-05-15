@@ -165,7 +165,7 @@
 							<label for="id">아이디</label>
 						</div>
 						<input type="text" name="id" id="id" class="input_box" maxlength="20" placeholder="아이디를 입력해주세요.">
-						<span class="err_msg">올바른 값을 입력해주세요.</span>
+						<span class="member_err_msg">올바른 값을 입력해주세요.</span>
 						<div class="explanation">
 							<span>소문자 영어와 숫자를 조합하여<br> 6~50자 이하로 입력해주세요.</span>
 						</div>
@@ -176,7 +176,7 @@
 							<label for="pw">비밀번호</label>
 						</div>
 						<input type="password" name="pw" id="pw" class="input_box" maxlength="20" placeholder="비밀번호를 입력해주세요.">
-						<span class="err_msg">올바른 값을 입력해주세요.</span>
+						<span class="member_err_msg">올바른 값을 입력해주세요.</span>
 						<div class="explanation">
 							<span>영어와 숫자를 조합하여<br> 4~12자 이내로 입력해주세요.</span>
 						</div>
@@ -187,7 +187,7 @@
 							<label for="repw">비밀번호 재확인</label>
 						</div>
 						<input type="password" name="repw" id="repw" class="input_box" maxlength="20" placeholder="비밀번호를 다시 입력해주세요.">
-						<span class="err_msg">올바른 값을 입력해주세요.</span>
+						<span class="member_err_msg">올바른 값을 입력해주세요.</span>
 						<div class="explanation">
 							<span>위에 입력하셨던 비밀번호와<br> 동일하게 입력해주세요.</span>
 						</div>
@@ -198,7 +198,7 @@
 							<label for="name">이름</label>
 						</div>
 						<input type="text" name="name" id="name" class="input_box" maxlength="4" placeholder="이름을 입력해주세요.">
-						<span class="err_msg">올바른 값을 입력해주세요.</span>
+						<span class="member_err_msg">올바른 값을 입력해주세요.</span>
 						<div class="explanation">
 							<span>한글(Korean) 이름으로<br> 2~4자 이내로 입력해주세요.</span>
 						</div>
@@ -209,7 +209,7 @@
 							<label for="phone">전화번호</label>
 						</div>
 						<input type="text" name="phone" id="phone" class="input_box" maxlength="11" placeholder="전화번호를 입력해주세요.">
-						<span class="err_msg">올바른 값을 입력해주세요.</span>
+						<span class="member_err_msg">올바른 값을 입력해주세요.</span>
 						<div class="explanation">
 							<span>'-' 없이 숫자로만 입력해주세요.<br>ex ) 01012345678</span>
 						</div>
@@ -234,7 +234,7 @@
 								</option>
 							</select>
 						</div>
-						<span class="err_msg">올바른 값을 입력해주세요.</span>
+						<span class="member_err_msg">올바른 값을 입력해주세요.</span>
 						<div class="explanation">
 							<span>본인이 자주 사용하시는<br> 이메일을 정확하게 입력해주세요.</span>
 						</div>
@@ -252,7 +252,7 @@
 							<input type="text" id="sample6_detailAddress" name="addr2" placeholder="상세주소">
 							<input type="text" id="sample6_extraAddress" placeholder="참고항목">
 						</div>
-						<span class="err_msg">올바른 값을 입력해주세요.</span>
+						<span class="member_err_msg">올바른 값을 입력해주세요.</span>
 						<div class="explanation" id="explanation_adr">
 							<span>우편번호 찾기를 이용하시면<br>편리하게 주소입력을 하실 수 있습니다.</span>
 						</div>
@@ -362,7 +362,7 @@
 				// 8-1(실패). code 값이 0이 아닌 경우 → 유효한 값 아님         
 				if(checkResult.code != 0) {
 					// 경고 메시지 출력
-					$('.err_msg').eq(0).text(checkResult.desc)
+					$('.member_err_msg').eq(0).text(checkResult.desc)
 									   .css('display', 'block')
 									   .css('color', 'tomato');
 					return false;
@@ -390,14 +390,26 @@
 				var checkResult = joinValidate.checkPw(memPw, memRepw);
 				
 				if(checkResult.code != 0) {
-					$('.err_msg').eq(1).text(checkResult.desc)
+					$('.member_err_msg').eq(1).text(checkResult.desc)
 									   .css('display', 'block')
 									   .css('color', 'tomato');
 					return false;
 				} else {
-					$('.err_msg').eq(1).text(checkResult.desc)
+					$('.member_err_msg').eq(1).text(checkResult.desc)
 									   .css('display', 'block')
 									   .css('color', 'dodgerblue');
+					if(memRepw != "" || memRepw.length != 0) {	
+						if(memPw == memRepw) {
+							$('.member_err_msg').eq(2).text("비밀번호가 일치합니다.")
+							  				   .css('display', 'block')
+							  				   .css('color', 'dodgerblue');
+						} else {
+							$('.member_err_msg').eq(2).text("입력하신 비밀번호가 일치하지 않습니다.")
+							  				   .css('display', 'block')
+							  				   .css('color', 'tomato');
+							return false;
+						}
+					}
 					return true;
 				}
 				return false;
@@ -410,36 +422,34 @@
 			// 4) pw != repw
 
 			$('#repw').blur(function(){
-				var pw = $.trim($('#pw').val());
-				var repw = $.trim($(this).val());
-				var regEmpty = /\s/g;
-				var pwReg = RegExp(/^[a-zA-Z0-9]{4,12}$/);
+				var memPw = $.trim($('#pw').val());
+				var memRepw = $.trim($('#repw').val());
+				var checkResult = joinValidate.checkRepw(memPw, memRepw);
 				
-				if(repw == "" || repw.length == 0) {
-					$('.err_msg').eq(2).text('필수 입력 정보입니다.')
-					   				   .css('display', 'block')
-					  				   .css('color', 'tomato');
-					return false;
-				} else if(repw.match(regEmpty)) {
-					$('.err_msg').eq(2).text('공백 없이 입력해주세요.')
-	                                   .css('display', 'block')
-	                                   .css('color', 'tomato');
-					return false;
-				} else if(!pwReg.test(repw)) {
-					$('.err_msg').eq(2).text('올바른 비밀번호를 입력해주세요.')
-									   .css('display', 'block')
-									   .css('color', 'tomato');
-					return false;
-				} else if(pw != repw){
-					$('.err_msg').eq(2).text('입력하신 비밀번호가 일치하지 않습니다.')
+				if(checkResult.code != 0) {
+					$('.member_err_msg').eq(2).text(checkResult.desc)
 									   .css('display', 'block')
 									   .css('color', 'tomato');
 					return false;
 				} else {
-					$('.err_msg').eq(2).text('사용 가능한 비밀번호입니다.')
+					$('.member_err_msg').eq(2).text(checkResult.desc)
 									   .css('display', 'block')
 									   .css('color', 'dodgerblue');
+					if(memPw != "" || memPw.length != 0) {	
+						if(memPw == memRepw) {
+							$('.member_err_msg').eq(1).text("비밀번호가 일치합니다.")
+							  				   .css('display', 'block')  
+							  				   .css('color', 'dodgerblue');
+						} else {
+							$('.member_err_msg').eq(1).text("입력하신 비밀번호가 일치하지 않습니다.")
+							  				   .css('display', 'block') 
+							  				   .css('color', 'tomato');
+							return false;
+						}
+					}
+					return true;
 				}
+				return false;
 			});
 			
 			// name
@@ -453,27 +463,27 @@
 				var regEmpty = /\s/g;
 				
 				if(name == "" || name.lengh == 0) {
-					$('.err_msg').eq(3).text('필수 입력 정보입니다.')
+					$('.member_err_msg').eq(3).text('필수 입력 정보입니다.')
 					   				   .css('display', 'block')
 					  				   .css('color', 'tomato');
 					return false;
 				} else if(name.match(regEmpty)) {
-					$('.err_msg').eq(3).text('공백 없이 입력해주세요.')
+					$('.member_err_msg').eq(3).text('공백 없이 입력해주세요.')
 					                   .css('display', 'block')
 					                   .css('color', 'tomato');
 			 		return false;
 				} else if(regKor.test(name)) {
-					$('.err_msg').eq(3).text('이름은 표준 한글만 입력 가능합니다.')
+					$('.member_err_msg').eq(3).text('이름은 표준 한글만 입력 가능합니다.')
 									   .css('display', 'block')
 									   .css('color', 'tomato');
 					return false;
 				} else if(name.length < 2 || name.length > 4) { 
-					$('.err_msg').eq(3).text('이름은 2자 이상 4자 이하여만 합니다.')
+					$('.member_err_msg').eq(3).text('이름은 2자 이상 4자 이하여만 합니다.')
 									   .css('display', 'block')
 									   .css('color', 'tomato');
 					return false; 
 				} else {
-					$('.err_msg').eq(3).text('멋진 이름이네요!')
+					$('.member_err_msg').eq(3).text('멋진 이름이네요!')
 									   .css('display', 'block')
 									   .css('color', 'dodgerblue');
 				}
@@ -489,32 +499,32 @@
 				var regEmpty = /\s/g;
 				var regPhone = /^(?:(010\d{4})|(01[1|6|7|8|9]\d{3,4}))(\d{4})$/;
 				if(phone == "" || phone.lengh == 0) {
-					$('.err_msg').eq(4).text('필수 입력 정보입니다.')
+					$('.member_err_msg').eq(4).text('필수 입력 정보입니다.')
 					   				   .css('display', 'block')
 					  				   .css('color', 'tomato');
 					return false;
 				} else if(phone.match(regEmpty)) {
-					$('.err_msg').eq(4).text('공백 없이 입력해주세요.')
+					$('.member_err_msg').eq(4).text('공백 없이 입력해주세요.')
 					                   .css('display', 'block')
 					                   .css('color', 'tomato');
 			 		return false;
 				} else if($.isNumeric(phone) == false) {
-					$('.err_msg').eq(4).text('숫자만 입력해주세요.')
+					$('.member_err_msg').eq(4).text('숫자만 입력해주세요.')
 					                   .css('display', 'block')
 					                   .css('color', 'tomato');
 					return false;
 				} else if(phone.indexOf("01") != 0) {
-					$('.err_msg').eq(4).text('휴대폰 번호가 유효하지 않습니다.')
+					$('.member_err_msg').eq(4).text('휴대폰 번호가 유효하지 않습니다.')
 					                   .css('display', 'block')
 					                   .css('color', 'tomato');
 					return false;
 				} else if(!(phone.length == 10 || phone.length == 11)) {
-					$('.err_msg').eq(4).text("'-' 없이 10, 11자로 입력해주세요.")
+					$('.member_err_msg').eq(4).text("'-' 없이 10, 11자로 입력해주세요.")
 					                   .css('display', 'block')
 					                   .css('color', 'tomato');
 					return false;
 				} else {
-					$('.err_msg').eq(4).text('멋진 전화번호네요!')
+					$('.member_err_msg').eq(4).text('멋진 전화번호네요!')
 									   .css('display', 'block')
 									   .css('color', 'dodgerblue');
 				}		
@@ -527,29 +537,29 @@
 				var emailReg = RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
 				
 				if(email == "" || email.lengh == 0) {
-					$('.err_msg').eq(5).text('필수 입력 정보입니다.')
+					$('.member_err_msg').eq(5).text('필수 입력 정보입니다.')
 					   				   .css('display', 'block')
 					  				   .css('color', 'tomato');
 					return false;
 				} else if(email.match(regEmpty)) {
-					$('.err_msg').eq(5).text('공백 없이 입력해주세요.')
+					$('.member_err_msg').eq(5).text('공백 없이 입력해주세요.')
 					                   .css('display', 'block')
 					                   .css('color', 'tomato');
 			 		return false;
 				} else if(url != "" || url.length != 0) {
 					var fullMail = email + "@" + url;
 					if(!emailReg.test(fullMail)) {
-						$('.err_msg').eq(5).text('올바른 이메일을 입력해주세요.')
+						$('.member_err_msg').eq(5).text('올바른 이메일을 입력해주세요.')
 										   .css('display', 'block')
 										   .css('color', 'tomato');
 						return false;
 					} else {
-						$('.err_msg').eq(5).text('멋진 이메일이네요!')
+						$('.member_err_msg').eq(5).text('멋진 이메일이네요!')
 										   .css('display', 'block')
 										   .css('color', 'dodgerblue');
 					}
 				} else {
-					$('.err_msg').eq(5).text('')
+					$('.member_err_msg').eq(5).text('')
 					return false;
 				}
 			});
@@ -561,29 +571,29 @@
 				var emailReg = RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
 				
 				if(url == "" || url.lengh == 0) {
-					$('.err_msg').eq(5).text('필수 입력 정보입니다.')
+					$('.member_err_msg').eq(5).text('필수 입력 정보입니다.')
 					   				   .css('display', 'block')
 					  				   .css('color', 'tomato');
 					return false;
 				} else if(url.match(regEmpty)) {
-					$('.err_msg').eq(5).text('공백 없이 입력해주세요.')
+					$('.member_err_msg').eq(5).text('공백 없이 입력해주세요.')
 					                   .css('display', 'block')
 					                   .css('color', 'tomato');
 			 		return false;
 				} else if(email != "" || email.length != 0) {
 					var fullMail = email + "@" + url;
 					if(!emailReg.test(fullMail)) {
-						$('.err_msg').eq(5).text('올바른 이메일을 입력해주세요.')
+						$('.member_err_msg').eq(5).text('올바른 이메일을 입력해주세요.')
 										   .css('display', 'block')
 										   .css('color', 'tomato');
 						return false;
 					} else {
-						$('.err_msg').eq(5).text('멋진 이메일이네요!')
+						$('.member_err_msg').eq(5).text('멋진 이메일이네요!')
 										   .css('display', 'block')
 										   .css('color', 'dodgerblue');
 					}
 				} else {
-					$('.err_msg').eq(5).text('')
+					$('.member_err_msg').eq(5).text('')
 					return false;
 				}
 			});
@@ -618,7 +628,7 @@
 				var dAddr = $.trim($(this).val());
 				
 				if(dAddr == "" || dAddr.length == 0) {
-					$('.err_msg').eq(6).text('필수 입력 정보입니다.')
+					$('.member_err_msg').eq(6).text('필수 입력 정보입니다.')
 					   				   .css('display', 'block')
 					  				   .css('color', 'tomato');
 					return false;
