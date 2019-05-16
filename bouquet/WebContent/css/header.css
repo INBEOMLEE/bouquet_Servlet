@@ -1,3 +1,11 @@
+.index_header {
+	position: fixed;
+	width: 100%;
+	top: 0;
+}
+.margin_div {
+	margin-top: 255px;
+}
 .header_outline {
 	/*border: 1px solid black;*/
 	width: 100%;
@@ -41,7 +49,8 @@
 .logo_outline {
 	/*border: 1px solid black;*/
 	width: 100%;
-	height: 180px;
+	height: 170px;
+	background-color: white;
 }
 
 .logo_inline {

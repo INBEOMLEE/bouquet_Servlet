@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="include/header.jsp" %>
+<%@ include file="../include/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -263,7 +263,7 @@
 			</div>
 		</div>
 	</section>
-	<%@ include file="include/footer.jsp" %>
+	<%@ include file="../include/footer.jsp" %>
 	
 	<script type="text/javascript" src="js/validation.js"></script>
 	<script type="text/javascript">
@@ -477,7 +477,7 @@
 									   .css('display', 'block')
 									   .css('color', 'tomato');
 					return false;
-				} else if(name.length < 2 || name.length > 4) { 
+				} else if(name.length < 2 || name.length > 4) {  
 					$('.member_err_msg').eq(3).text('이름은 2자 이상 4자 이하여만 합니다.')
 									   .css('display', 'block')
 									   .css('color', 'tomato');

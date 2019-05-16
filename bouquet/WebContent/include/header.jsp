@@ -46,7 +46,7 @@
 		<button id="modal_close"><i class="fas fa-times"></i></button>
 		</div>
 	</div>
-	<header>
+	<header class="index_header">
 		<div class="header_outline">
 			<div class="header_inline">
 				<div class="header_icon">
@@ -81,55 +81,56 @@
 				<a href="file:///D:/sublime_workspace/bouquet/bouquet.html"><img src="${path}/img/free_horizontal_on_white_by_logaster.png"></a>
 			</div>
 		</div>
-	</header>
-	<nav>
-		<div class="nav_outline">
-			<div class="nav_inline">
-				<ul>
-					<li>
-						<a href="#">천천히봄</a>
-						<div class="dropdown01">
-							<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">BEST</a>
-							<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">SPECIAL</a>
-							<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">LUXURY</a>
-							<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">NOBLESS</a>
+		<nav>
+			<div class="nav_outline">
+				<div class="nav_inline">
+					<ul>
+						<li>
+							<a href="#">천천히봄</a>
+							<div class="dropdown01">
+								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">BEST</a>
+								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">SPECIAL</a>
+								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">LUXURY</a>
+								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">NOBLESS</a>
+							</div>
+						</li>
+						<li>
+							<a href="#">여름다운</a>
+							<div class="dropdown01">
+								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">BEST</a>
+								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">SPECIAL</a>
+								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">LUXURY</a>
+								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">NOBLESS</a>
+							</div>
+						</li>
+						<li>
+							<a href="#">색색가을</a>
+							<div class="dropdown01">
+								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">BEST</a>
+								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">SPECIAL</a>
+								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">LUXURY</a>
+								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">NOBLESS</a>
+							</div>
+						</li>
+						<li>
+							<a href="#">겨울눈꽃</a>
+							<div class="dropdown01">
+								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">BEST</a>
+								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">SPECIAL</a>
+								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">LUXURY</a>
+								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">NOBLESS</a>
+							</div>
+						</li>
+						<div class="nav_search">
+							<input type="search" name="search">
+							<a href="#"><i class="fas fa-search"></i></a>
 						</div>
-					</li>
-					<li>
-						<a href="#">여름다운</a>
-						<div class="dropdown01">
-							<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">BEST</a>
-							<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">SPECIAL</a>
-							<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">LUXURY</a>
-							<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">NOBLESS</a>
-						</div>
-					</li>
-					<li>
-						<a href="#">색색가을</a>
-						<div class="dropdown01">
-							<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">BEST</a>
-							<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">SPECIAL</a>
-							<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">LUXURY</a>
-							<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">NOBLESS</a>
-						</div>
-					</li>
-					<li>
-						<a href="#">겨울눈꽃</a>
-						<div class="dropdown01">
-							<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">BEST</a>
-							<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">SPECIAL</a>
-							<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">LUXURY</a>
-							<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">NOBLESS</a>
-						</div>
-					</li>
-					<div class="nav_search">
-						<input type="search" name="search">
-						<a href="#"><i class="fas fa-search"></i></a>
-					</div>
-				</ul>
+					</ul>
+				</div>
 			</div>
-		</div>
-	</nav>
+		</nav>
+	</header>
+	<div class="margin_div"></div>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$("#btn_login").click(function(){
@@ -224,12 +225,18 @@
 				var scrollValue = $(this).scrollTop();
 				if(scrollValue > 40) {
 					$('#topBtn').fadeIn();
+					$('.index_header').css('opacity', '0.2');
 				} else {
 					$('#topBtn').fadeOut();
+					$('.index_header').css('opacity', '1');
 				}
 			});
 			$('#topBtn').click(function(){
 				$('html, body').animate({scrollTop : 0}, 800);
+			});
+			
+			$('.index_header').hover(function(){
+				$(this).css('transition', '0.7s').css('opacity', '1');
 			});
 			
 		});
