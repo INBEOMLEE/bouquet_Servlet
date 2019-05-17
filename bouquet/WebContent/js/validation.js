@@ -14,7 +14,7 @@ var joinValidate = {
 		// ID
 		success_id : {
 			code : 0,
-			desc : '멋진 아이디네요:)'
+			desc : '멋진 아이디네요 :)'
 		},
 		invalid_id : {
 			code : 3,
@@ -46,7 +46,7 @@ var joinValidate = {
 		// NAME
 		success_name : {
 			code : 0,
-			desc : '멋진 이름이네요:)'
+			desc : '멋진 이름이네요 :)'
 		},
 		invalid_name : {
 			code : 3,
@@ -60,7 +60,7 @@ var joinValidate = {
 		// PHONE
 		success_phone : {
 			code : 0,
-			desc : '멋진 전화번호네요:)'
+			desc : '멋진 전화번호네요 :)'
 		},
 		invalid_phone : {
 			code : 3,
@@ -78,7 +78,7 @@ var joinValidate = {
 		// EMAIL
 		success_email : {
 			code : 0,
-			desc : '멋진 이메일이네요:)'
+			desc : '멋진 이메일이네요 :)'
 		},
 		invalid_email : {
 			code : 3,
@@ -145,6 +145,7 @@ var joinValidate = {
 
 // ID 중복체크 Ajax
 function ajaxCheck(memId) {
+	var return_val = false;
 	// 10. ajax 시작 !
 	//     목적지 : idCheck.bouquet
 	//     전달 데이터 : memId 데이터를 id 변수에 담아 전달
@@ -156,28 +157,29 @@ function ajaxCheck(memId) {
 		type: "POST",
 		dataType: "json",
 		data: "id="+memId,
-		
+		async: false,
 		// 29. Action단에서 전송한 message와 id를 data 매개변수로 받음
 		success: function(data){
 			
 			// 30. data.message의 값이 -1이면 → 중복 메시지 출력
 			//     data.message의 값이 1이면 → 사용 가능 메시지 출력
 			if(data.message == "-1") {
-				$('.err_msg').eq(0).text('이미 사용 중인 아이디입니다.')
+				$('.member_err_msg').eq(0).text('이미 사용 중인 아이디입니다.')
 								   .css('display', 'block')
 								   .css('color', 'tomato');
-				return "-1";
+				return_val = false;
 			} else {
-				$('.err_msg').eq(0).text('멋진 아이디네요:)')
+				$('.member_err_msg').eq(0).text('멋진 아이디네요:)')
 				                   .css('display', 'block')
 								   .css('color', 'dodgerblue');
-				return "1";
+				return_val = true;
 			}
 		},
 		error: function(){
 			alert("System Error!!!");
 		} 
 	});
+	return return_val;
 }
 
 function ajaxPwCheck(nowId, nowPw) {

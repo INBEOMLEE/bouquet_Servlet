@@ -164,7 +164,7 @@
 		</div>
 	</section>
 	<%@ include file="../include/footer.jsp" %>
-	<script type="text/javascript" src="js/validation.js"></script>
+	<script type="text/javascript" src="${path}/js/validation.js"></script>
 	<script type="text/javascript">
 		
 		$(document).ready(function(){

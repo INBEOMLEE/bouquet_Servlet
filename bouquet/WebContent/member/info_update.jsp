@@ -8,7 +8,6 @@
 <title>BOUQUET : 회원수정</title>
 <style type="text/css">
 	.section {
-		border-top: 1px solid #dadada;
 		background-color: #FFFFF6;
 	}
 	.inner_section {
@@ -165,9 +164,6 @@
 		height: 196px;
 		padding-top: 60px;
 	}
-	
-
-
 
 </style>
 </head>

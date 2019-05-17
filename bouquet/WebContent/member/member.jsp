@@ -265,7 +265,7 @@
 	</section>
 	<%@ include file="../include/footer.jsp" %>
 	
-	<script type="text/javascript" src="js/validation.js"></script>
+	<script type="text/javascript" src="${path}/js/validation.js"></script>
 	<script type="text/javascript">
 		
 		$(document).ready(function(){
@@ -371,7 +371,7 @@
 					// 중복여부 체크를 위한 Ajax 검증 시작
 					// 9. ajaxCheck() 메서드 실행, memId를 매개변수로 보냄
 					// 31. ajaxCheck(memId)의 return 값이 1이면 return true;
-					if(ajaxCheck(memId) == "1"){
+					if(ajaxCheck(memId) == true){
 						return true;
 					}
 				}
@@ -477,11 +477,11 @@
 									   .css('display', 'block')
 									   .css('color', 'tomato');
 					return false;
-				} else if(name.length < 2 || name.length > 4) {  
+				} else if(name.length < 2 || name.length > 4) { 
 					$('.member_err_msg').eq(3).text('이름은 2자 이상 4자 이하여만 합니다.')
 									   .css('display', 'block')
 									   .css('color', 'tomato');
-					return false; 
+					return false;  
 				} else {
 					$('.member_err_msg').eq(3).text('멋진 이름이네요!')
 									   .css('display', 'block')

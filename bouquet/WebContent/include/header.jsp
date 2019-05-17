@@ -78,7 +78,7 @@
 		</div>
 		<div class="logo_outline">
 			<div class="logo_inline">
-				<a href="file:///D:/sublime_workspace/bouquet/bouquet.html"><img src="${path}/img/free_horizontal_on_white_by_logaster.png"></a>
+				<a href="index.bouquet"><img src="${path}/img/free_horizontal_on_white_by_logaster.png"></a>
 			</div>
 		</div>
 		<nav>
@@ -131,6 +131,12 @@
 		</nav>
 	</header>
 	<div class="margin_div"></div>
+	<aside>
+		<button id="topBtn">
+			<i class="fas fa-arrow-up"></i>
+		</button>
+	</aside>
+	
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$("#btn_login").click(function(){

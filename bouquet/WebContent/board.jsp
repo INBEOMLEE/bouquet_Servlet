@@ -10,12 +10,11 @@
 	section {
 		width: 100%;
 		height: auto;
-		margin-top: 270px;
 	}
 	.board_inline {
 		width: 1080px;
 		height: 675px;
-		margin: 0 auto 200px;
+		margin: 300px auto 200px;
 		border-radius: 30px;
 		box-shadow: 3px 3px 3px 3px #ccc;
 		border: 1px solid black;
@@ -43,6 +42,11 @@
 	.board_sort span {
 		margin-left: 10px;
 		cursor: pointer;
+		transition: 0.5s;
+	}
+	.board_sort span:nth-child(1) {
+		font-size: 18px;
+		color: #D8ADB6;
 	}
 	.board {
 		width: 1040px;
@@ -66,34 +70,36 @@
 	.board tr:nth-child(odd) {
 		background-color: #EAEAEA;
 	}
-	.board_no {
+	.board_column th:nth-child(1) {
 		width: 30px;
 	}
-	.board_title{
+	.board_column th:nth-child(2){
 		width: 100px;
 	}
-	.board_writer {
+	.board_column th:nth-child(3) {
 		width: 50px;
 	}
-	.board_regdate {
+	.board_column th:nth-child(4) {
 		width: 68px;
 	}
-	.board_good {
+	.board_column th:nth-child(5) {
 		width: 40px;
 	}
-	.board_view {
-		width: 30px;
+	.board_column th:nth-child(6) {
+		width: 39px;
 	}
-	.board_file {
+	.board_column th:nth-child(7) {
 		width: 30px;
 	}
 	.board tr td:nth-child(2) {
 		text-align: left;
-		padding-left: 10px;
-		cursor: pointer;
+		padding-left: 15px;
 	}
-	.board tr td:nth-child(3) {
-		cursor: pointer;
+	.fa-heart {
+		color: red;
+	}
+	.fa-file-alt {
+		color: #242424;
 	}
 	.board_insert {
 		display: inline-block;
@@ -133,6 +139,7 @@
 		width: 200px;
 		transition: 0.7s;
 		line-height: 35px;
+		padding: 0 10px;
 	}
 	.board_search i {
 		line-height: 35px;
@@ -165,12 +172,14 @@
 	    color: #242424;
 	    
 	}
-	
 	.pagination i {
 		width: 30px;
 		display: block;
 		line-height: 23px;
 		color: #242424;
+	}
+	.fa-eye {
+		width: 15px;
 	}
 	
 </style>
@@ -187,103 +196,103 @@
 			</div>
 			<table class="board">
 				<tr class="board_column" id="board_column">
-					<th class="board_no">No.</th>
-					<th class="board_title">제목</th>
-					<th class="board_writer">작성자</th>
-					<th class="board_regdate">작성일</th>
-					<th class="board_good">좋아요</th>
-					<th class="board_view">조회수</th>
-					<th class="board_file">첨부</th>
+					<th>No.</th>
+					<th>제목</th>
+					<th>작성자</th>
+					<th>작성일</th>
+					<th>좋아요</th>
+					<th>조회수</th>
+					<th>첨부</th>
 				</tr>
 				<tr>
 					<td>000</td>
-					<td>안녕하세요</td>
+					<td><a href="#">안녕하세요</a></td>
 					<td>이인범</td>
 					<td>11:12:57</td>
-					<td>0</td>
-					<td>1</td>
-					<td><i class="fas fa-folder-open"></i></td>
+					<td><i class="fas fa-heart"></i> 0</td>
+					<td><i class="fas fa-eye"></i> 1</td>
+					<td><i class="far fa-file-alt"></i></td>
 				</tr>
 				<tr>
 					<td>000</td>
-					<td>안녕하세요</td>
+					<td><a href="#">안녕하세요</a></td>
 					<td>이인범</td>
 					<td>11:12:57</td>
-					<td>0</td>
-					<td>1</td>
+					<td><i class="fas fa-heart"></i> 0</td>
+					<td><i class="fas fa-eye"></i> 1</td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>000</td>
-					<td>안녕하세요</td>
+					<td><a href="#">안녕하세요</a></td>
 					<td>이인범</td>
 					<td>11:12:57</td>
-					<td>0</td>
-					<td>1</td>
+					<td><i class="fas fa-heart"></i> 0</td>
+					<td><i class="fas fa-eye"></i> 1</td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>000</td>
-					<td>안녕하세요</td>
+					<td><a href="#">안녕하세요</a></td>
 					<td>이인범</td>
 					<td>11:12:57</td>
-					<td>0</td>
-					<td>1</td>
-					<td><i class="fas fa-folder-open"></i></td>
+					<td><i class="fas fa-heart"></i> 0</td>
+					<td><i class="fas fa-eye"></i> 1</td>
+					<td><i class="far fa-file-alt"></i></td>
 				</tr>
 				<tr>
 					<td>000</td>
-					<td>안녕하세요</td>
+					<td><a href="#">안녕하세요</a></td>
 					<td>이인범</td>
 					<td>11:12:57</td>
-					<td>0</td>
-					<td>1</td>
-					<td><i class="fas fa-folder-open"></i></td>
+					<td><i class="fas fa-heart"></i> 0</td>
+					<td><i class="fas fa-eye"></i> 1</td>
+					<td><i class="far fa-file-alt"></i></td>
 				</tr>
 				<tr>
 					<td>000</td>
-					<td>안녕하세요</td>
+					<td><a href="#">안녕하세요</a></td>
 					<td>이인범</td>
 					<td>11:12:57</td>
-					<td>0</td>
-					<td>1</td>
+					<td><i class="fas fa-heart"></i> 0</td>
+					<td><i class="fas fa-eye"></i> 1</td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>000</td>
-					<td>안녕하세요</td>
+					<td><a href="#">안녕하세요</a></td>
 					<td>이인범</td>
 					<td>11:12:57</td>
-					<td>0</td>
-					<td>1</td>
+					<td><i class="fas fa-heart"></i> 0</td>
+					<td><i class="fas fa-eye"></i> 1</td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>000</td>
-					<td>안녕하세요</td>
+					<td><a href="#">안녕하세요</a></td>
 					<td>이인범</td>
 					<td>11:12:57</td>
-					<td>0</td>
-					<td>1</td>
+					<td><i class="fas fa-heart"></i> 0</td>
+					<td><i class="fas fa-eye"></i> 1</td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>000</td>
-					<td>안녕하세요</td>
+					<td><a href="#">안녕하세요</a></td>
 					<td>이인범</td>
 					<td>11:12:57</td>
-					<td>0</td>
-					<td>1</td>
+					<td><i class="fas fa-heart"></i> 0</td>
+					<td><i class="fas fa-eye"></i> 1</td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>000</td>
-					<td>안녕하세요</td>
+					<td><a href="#">안녕하세요</a></td>
 					<td>이인범</td>
 					<td>11:12:57</td>
-					<td>0</td>
-					<td>1</td>
-					<td><i class="fas fa-folder-open"></i></td>
+					<td><i class="fas fa-heart"></i> 0</td>
+					<td><i class="fas fa-eye"></i> 1</td>
+					<td><i class="far fa-file-alt"></i></td>
 				</tr>
 			</table>
 			<div class="board_insert">게시글 등록</div>
@@ -327,7 +336,18 @@
 					flag = 0;
 				}
 			});
+			
+			$('.board_sort span').click(function(){
+				sortStyle();
+				$(this).css('color', '#D8ADB6')
+				       .css('font-size', '18px')
+			});
 		});
+		
+		function sortStyle() {
+			$('.board_sort span').css('color', '#242424')
+		                         .css('font-size', '16px')
+		}  
 	</script>
 </body>
 </html>

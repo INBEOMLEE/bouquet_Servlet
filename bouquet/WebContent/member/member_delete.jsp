@@ -219,7 +219,7 @@
 			</div>
 		</div>
 	</section>
-	<script type="text/javascript" src="js/validation.js"></script>
+	<script type="text/javascript" src="${path}/js/validation.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			var state = false;

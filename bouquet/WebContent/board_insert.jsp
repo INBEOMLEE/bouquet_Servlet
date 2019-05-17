@@ -10,13 +10,12 @@
 	section {
 		width: 100%;
 		height: auto;
-		margin-top: 270px;
 	}
 	.board_inline {
 		width: 1080px;
 		height: auto;
 		border: 1px solid black;
-		margin: 0 auto 200px;
+		margin: 300px auto 200px;
 		border-radius: 30px;
 		box-shadow: 3px 3px 3px 3px #ccc;
 		padding-bottom: 35px;
@@ -38,9 +37,10 @@
 		font-size: 20px;
 		margin: 0 19px;
 		padding-left: 20px;
-		font-weight: 600;
+		font-weight: 500;
 		border: 1px solid #A2A2A2;
 		height: 35px;
+		color: #363636;
 	}
 	textarea {
 		margin: 0 19px;
@@ -69,6 +69,9 @@
 	}
 	.float {
 		float: right;
+		width: 150px;
+		text-align: center;
+		font-size: 20px;
 	}
 	.file_name {
 		display: inline-block;
@@ -76,6 +79,15 @@
 		line-height: 35px;
 		font-size: 16px;
 		font-weight: 500;
+	}
+	#input_none {
+		display: none;
+	}
+	#file_cancle_btn {
+		display: none;
+		position: relative;
+		top: 2px;
+		cursor: pointer;
 	}
 </style>
 </head>
@@ -90,9 +102,37 @@
 			<div class="font_style">작성자</div>
 			<input type="text" class="input_style">
 			<div class="board_insert float">게시글 등록</div>
-			<div class="board_insert">첨부파일 등록</div>
+			<label for="input_none" class="board_insert">첨부파일 등록</label>
+			<input type="file" class="board_insert" id="input_none">
 			<div class="file_name">선택된 파일 없음</div>
+			<div id="file_cancle_btn"><i class="fas fa-times"></i></div>
 		</div>
 	</section>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$('#input_none').on('change', function(){
+			if(window.FileReader){
+				var filename = $(this)[0].files[0].name;
+			} else {
+				var filename = $(this).val().split('/').pop().split('\\').pop();
+			}
+			
+			$('.file_name').text(filename);
+			
+			if($(this).val() != null) {
+				$('#file_cancle_btn').css('display', 'inline-block');
+			} else {
+				$('#file_cancle_btn').css('display', 'none');
+			}
+		});
+		
+		$('#file_cancle_btn').click(function(){
+			$('#input_none').val("");
+			$('.file_name').text("선택된 파일 없음");
+			$(this).css('display', 'none');
+		});
+		
+	});
+	</script>
 </body>
 </html>
