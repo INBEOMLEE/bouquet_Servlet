@@ -191,14 +191,14 @@ SELECT * FROM tbl_board
 ORDER BY bno DESC;
     
 INSERT INTO tbl_board(bno, title, content, writer) VALUES(seq_board.NEXTVAL, '테스트입니다1', '테스트입니다1', 'user01');
-INSERT INTO tbl_board(bno, title, content, writer) VALUES(seq_board.NEXTVAL, '테스트입니다2', '테스트입니다2', 'user01');
-INSERT INTO tbl_board(bno, title, content, writer) VALUES(seq_board.NEXTVAL, '테스트입니다3', '테스트입니다3', 'user01');
+INSERT INTO tbl_board(bno, title, content, writer) VALUES(seq_board.NEXTVAL, '테스트입니다2', '테스트입니다2', 'user02');
+INSERT INTO tbl_board(bno, title, content, writer) VALUES(seq_board.NEXTVAL, '테스트입니다3', '테스트입니다3', 'user03');
 INSERT INTO tbl_board(bno, title, content, writer) VALUES(seq_board.NEXTVAL, '테스트입니다4', '테스트입니다4', 'user01');
-INSERT INTO tbl_board(bno, title, content, writer) VALUES(seq_board.NEXTVAL, '테스트입니다5', '테스트입니다5', 'user01');
-INSERT INTO tbl_board(bno, title, content, writer) VALUES(seq_board.NEXTVAL, '테스트입니다6', '테스트입니다6', 'user01');
+INSERT INTO tbl_board(bno, title, content, writer) VALUES(seq_board.NEXTVAL, '테스트입니다5', '테스트입니다5', 'user02');
+INSERT INTO tbl_board(bno, title, content, writer) VALUES(seq_board.NEXTVAL, '테스트입니다6', '테스트입니다6', 'user03');
 INSERT INTO tbl_board(bno, title, content, writer) VALUES(seq_board.NEXTVAL, '테스트입니다7', '테스트입니다7', 'user01');
-INSERT INTO tbl_board(bno, title, content, writer) VALUES(seq_board.NEXTVAL, '테스트입니다8', '테스트입니다8', 'user01');
-INSERT INTO tbl_board(bno, title, content, writer) VALUES(seq_board.NEXTVAL, '테스트입니다9', '테스트입니다9', 'user01');
+INSERT INTO tbl_board(bno, title, content, writer) VALUES(seq_board.NEXTVAL, '테스트입니다8', '테스트입니다8', 'user02');
+INSERT INTO tbl_board(bno, title, content, writer) VALUES(seq_board.NEXTVAL, '테스트입니다9', '테스트입니다9', 'user03');
 INSERT INTO tbl_board(bno, title, content, writer) VALUES(seq_board.NEXTVAL, '테스트입니다10', '테스트입니다10', 'user01');
 
 COMMIT;
