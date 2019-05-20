@@ -179,18 +179,20 @@ section {
 }
 .pagination_box {
 	width: 100%;
+	height: auto;
 }
 
 .pagination {
-	width: 372px;
+	width: 500px;
 	margin: 20px auto 0;
+	height: 30px;
+	text-align: center;
 }
 
 .pagination a {
 	display: inline-block;
 	width: 30px;
 	color: black;
-	float: left;
 	border: 1px solid #ddd;
 	text-align: center;
 	margin-right: 1px;
