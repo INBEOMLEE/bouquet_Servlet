@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 
 import com.bouquet.dao.MemberDAO;
-import com.bouquet.dao.ProductDAO;
 
 public class IdCheckAction implements Action{
 

@@ -86,7 +86,7 @@
 				<div class="nav_inline">
 					<ul>
 						<li>
-							<a href="#">천천히봄</a>
+							<a href="#">베스트상품</a>
 							<div class="dropdown01">
 								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">BEST</a>
 								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">SPECIAL</a>
@@ -95,7 +95,7 @@
 							</div>
 						</li>
 						<li>
-							<a href="#">여름다운</a>
+							<a href="#">새로운상품</a>
 							<div class="dropdown01">
 								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">BEST</a>
 								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">SPECIAL</a>
@@ -104,7 +104,7 @@
 							</div>
 						</li>
 						<li>
-							<a href="#">색색가을</a>
+							<a href="#">계절별상품</a>
 							<div class="dropdown01">
 								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">BEST</a>
 								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">SPECIAL</a>
@@ -113,7 +113,7 @@
 							</div>
 						</li>
 						<li>
-							<a href="#">겨울눈꽃</a>
+							<a href="${path}/boardList.bouquet">질문게시판</a>
 							<div class="dropdown01">
 								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">BEST</a>
 								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">SPECIAL</a>

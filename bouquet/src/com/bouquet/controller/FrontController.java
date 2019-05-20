@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bouquet.action.Action;
 import com.bouquet.action.ActionForward;
+import com.bouquet.action.BoardListAction;
 import com.bouquet.action.ConstractAction;
 import com.bouquet.action.DropMemberAction;
 import com.bouquet.action.DropMemberPlayAction;
@@ -52,7 +53,7 @@ public class FrontController extends HttpServlet {
 		String ctx = request.getContextPath();
 		String command = uri.substring(ctx.length());
 		
-		System.out.println("페이지 이동 ===>" + command);
+		System.out.println("페이지 이동 ===> " + command);
 		
 		// 14. 생성된 command 조건에 맞는 if문 실행
 		//     command = /idCheck.bouquet
@@ -105,6 +106,9 @@ public class FrontController extends HttpServlet {
 			forward = action.excute(request, response);
 		} else if(command.equals("/dropMemberPlay.bouquet")) {
 			action = new DropMemberPlayAction();
+			forward = action.excute(request, response);
+		} else if(command.equals("/boardList.bouquet")) {
+			action = new BoardListAction();
 			forward = action.excute(request, response);
 		}
 		
