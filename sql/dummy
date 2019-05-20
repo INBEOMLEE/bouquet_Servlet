@@ -203,4 +203,20 @@ INSERT INTO tbl_board(bno, title, content, writer) VALUES(seq_board.NEXTVAL, 'í…
 
 COMMIT;
 
-DELETE FROM tbl_board;
+DELETE FROM tbl_board
+WHERE bno > 310;
+
+DESC tbl_board;
+
+SELECT *
+FROM (SELECT rownum rnum, a.*
+      FROM (SELECT *
+            FROM tbl_board
+            WHERE bno > 0
+            ORDER BY bno DESC
+            ) a
+      ) 
+WHERE rnum BETWEEN 1 AND 10;
+            
+SELECT COUNT(bno) FROM tbl_board
+		WHERE bno > 0;
