@@ -1,8 +1,8 @@
 package com.bouquet.dto;
 
 public class CriteriaDTO {
-	private int page;                      // 페이지 번호(하단의 번호들 클릭)
-	private int perPageNum;                // 한 페이지에 보여줄 게시글 수
+	private int page;                  // 5     // 페이지 번호(하단의 번호들 클릭)
+	private int perPageNum;            // 10    // 한 페이지에 보여줄 게시글 수
 	private String keyword;                // 검색 키워드
 	private String search_option;          // 검색 타입
 	private String sort_type;              // 정렬 타입

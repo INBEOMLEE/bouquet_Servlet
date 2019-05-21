@@ -49,15 +49,10 @@ section {
 	transition: 0.5s;
 }
 
-.board_sort span:nth-child(1) {
-	font-size: 18px;
-	color: #D8ADB6;
-}
-
 .board {
 	width: 1040px;
 	margin: 0 auto;
-	height: 418px;
+	height: auto;
 	/*border: 1px solid orange;*/
 }
 
@@ -75,6 +70,7 @@ section {
 	text-align: center;
 	font-weight: 600;
 	color: #242424;
+	height: 35px;
 }
 
 .board tr:nth-child(odd) {
@@ -243,6 +239,13 @@ section {
 	border: 1px solid #D8ADB6;
 	color: white;
 }
+#search_result {
+	color: #D8ADB6;
+	font-weight: 600;
+	display: inline-block;
+	font-size: 17px;
+	margin-left: 20px;
+}
 </style>
 </head>
 <body>
@@ -250,7 +253,10 @@ section {
 		<div class="board_inline">
 			<div class="board_topic">질문 게시판</div>
 			<div class="board_sort">
-				<span>최신순</span> <span>추천순</span> <span>댓글순</span> <span>조회순</span>
+				<span><a href="${path}/boardList.bouquet?page=${criDto.page}&sort_type=new&keyword=${keyword}&search_option=${search_option}">최신순</a></span> 
+				<span><a href="${path}/boardList.bouquet?page=${criDto.page}&sort_type=good&keyword=${keyword}&search_option=${search_option}">추천순</a></span> 
+				<span><a href="${path}/boardList.bouquet?page=${criDto.page}&sort_type=reply&keyword=${keyword}&search_option=${search_option}">댓글순</a></span> 
+				<span><a href="${path}/boardList.bouquet?page=${criDto.page}&sort_type=view&keyword=${keyword}&search_option=${search_option}">조회순</a></span>
 			</div>
 			<table class="board">
 				<tr class="board_column" id="board_column">
@@ -270,53 +276,67 @@ section {
 						var="regdate" />
 					<tr>
 						<td>${bDto.bno}</td>
-						<td><a href="#">${bDto.title} <c:if
-									test="${bDto.replycnt > 0}">
+						<td>
+							<a href="#">${bDto.title} 
+								<c:if test="${bDto.replycnt > 0}">
 									<span class="replyCnt_Color">${bDto.replycnt}</span>
-								</c:if> <c:if test="${today == regdate}">
+								</c:if> 
+								<c:if test="${today == regdate}">
 									<span class="new_time">New</span>
 								</c:if>
-						</a></td>
+							</a>
+						</td>
 						<td>${bDto.writer}</td>
-						<td><c:choose>
+						<td>
+							<c:choose>
 								<c:when test="${today == regdate}">
 									<fmt:formatDate pattern="hh:mm:ss" value="${bDto.regdate}" />
 								</c:when>
 								<c:otherwise>
 									<fmt:formatDate pattern="yyyy-MM-dd" value="${bDto.regdate}" />
 								</c:otherwise>
-							</c:choose></td>
+							</c:choose>
+						</td>
 						<td><i class="fas fa-heart"></i> ${bDto.goodcnt}</td>
-						<td><i class="fas fa-eye"></i> ${bDto.replycnt}</td>
+						<td><i class="fas fa-eye"></i> ${bDto.viewcnt}</td>
 						<td><i class="far fa-file-alt"></i></td>
 					</tr>
 				</c:forEach>
 			</table>
+			
 			<div class="board_insert">게시글 등록</div>
+			
+			<c:if test="${!empty keyword}">
+				<div id="search_result">
+					<span class="search_span">"${keyword}"</span> 로 검색한 결과는 총
+					<span class="search_span">${totalCount}</span>건입니다.
+				</div>
+			</c:if>
+			
 			<div class="board_search">
-				<select>
-					<option selected="selected">조건 선택</option>
-					<option value="제목">제목</option>
-					<option value="내용">내용</option>
-					<option value="제목+내용">제목+내용</option>
-					<option value="작성자">작성자</option>
-				</select> 
-				<input type="text" class="search" name="search"> <i class="fas fa-search"></i>
+				<select id="selsearch" name="selsearch">
+					<option value="1" selected="selected">제목+내용</option>
+					<option value="2">제목</option>
+					<option value="3">내용</option>
+					<option value="4">작성자</option>
+				</select>
+				<input type="text" class="search" name="search" id="search_board">
+				<i class="fas fa-search" id="search_btn"></i>
 			</div>
 			<div class="pagination_box">
 				<div class="pagination">
 					<c:if test="${pageMaker.prev}">
-						<a href="boardList.bouquet?page=1"><i class="fas fa-angle-double-left"></i></a>
-						<a href="boardList.bouquet?page=${pageMaker.startPage - 1}"><i class="fas fa-angle-left"></i></a> 
+						<a href="boardList.bouquet?page=1&sort_type=${sort_type}&keyword=${keyword}&search_option=${search_option}"><i class="fas fa-angle-double-left"></i></a>
+						<a href="boardList.bouquet?page=${pageMaker.startPage - 1}&sort_type=${sort_type}&keyword=${keyword}&search_option=${search_option}"><i class="fas fa-angle-left"></i></a> 
 					</c:if>
 					
 					<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
-						<a href="${path}/boardList.bouquet?page=${idx}&flag=${flag}&keyword=${keyword}&key=${code}" <c:out value="${pageMaker.criDto.page == idx ? 'class=active':''}"/>>${idx}</a>
+						<a href="${path}/boardList.bouquet?page=${idx}&sort_type=${sort_type}&keyword=${keyword}&search_option=${search_option}" <c:out value="${pageMaker.criDto.page == idx ? 'class=active':''}"/>>${idx}</a>
 					</c:forEach>
 					
 					<c:if test="${pageMaker.next}">
-						<a href="${path}/boardList.bouquet?page=${pageMaker.endPage + 1}"><i class="fas fa-angle-right"></i></a>
-						<a href="${path}/boardList.bouquet?page=${pageMaker.finalPage}"><i class="fas fa-angle-double-right"></i></a> 
+						<a href="${path}/boardList.bouquet?page=${pageMaker.endPage + 1}&sort_type=${sort_type}&keyword=${keyword}&search_option=${search_option}"><i class="fas fa-angle-right"></i></a>
+						<a href="${path}/boardList.bouquet?page=${pageMaker.finalPage}&sort_type=${sort_type}&keyword=${keyword}&search_option=${search_option}"><i class="fas fa-angle-double-right"></i></a> 
 					</c:if>
 				</div>
 			</div>
@@ -335,17 +355,33 @@ section {
 					flag = 0;
 				}
 			});
-
-			$('.board_sort span').click(function() {
-				sortStyle();
-				$(this).css('color', '#D8ADB6').css('font-size', '18px')
+			
+			var sort_type = "${sort_type}";
+			if(sort_type == "new") {
+				$('.board_sort span').eq(0).css('color', '#D8ADB6').css('font-size', '18px');
+			} else if(sort_type == "good") {
+				$('.board_sort span').eq(1).css('color', '#D8ADB6').css('font-size', '18px');
+			} else if(sort_type == "reply") {
+				$('.board_sort span').eq(2).css('color', '#D8ADB6').css('font-size', '18px');
+			} else if(sort_type == "view") {
+				$('.board_sort span').eq(3).css('color', '#D8ADB6').css('font-size', '18px');
+			}
+			
+			$('#search_btn').click(function(){
+				var search_option = $('#selsearch').val();
+				var keyword = $.trim($('#search_board').val());
+				
+				if(keyword == null || keyword.length == 0) {
+					$('#search_board').focus();
+					$('#search_board').css('border', '1px solid rgb(231, 29, 54)');
+					return false;
+				} else {
+					$('#search_board').css('border', '1px solid #ddd');
+				}
+				location.href="${path}/boardList.bouquet?search_option="+search_option+"&keyword="+keyword;
 			});
 		});
-
-		function sortStyle() {
-			$('.board_sort span').css('color', '#242424').css('font-size',
-					'16px')
-		}
+		
 	</script>
 </body>
 </html>
