@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.shs.mybatis.BouquetMapper.xml">
+<mapper namespace="com.bouquet.mybatis.BouquetMapper.xml">
 	<select id="bestList" resultType="com.bouquet.dto.ProductDTO">
 		<![CDATA[
 			SELECT *
@@ -120,4 +120,80 @@
              ) 
         WHERE rnum BETWEEN #{pageStart} AND #{perPageNum}
 	</select>
+	
+	<select id="view" parameterType="String" resultType="com.bouquet.dto.BoardDTO">
+		SELECT * 
+		FROM tbl_board
+		WHERE bno = #{bno}
+	</select>
+	
+	<update id="viewCnt" parameterType="String">
+		UPDATE tbl_board
+		SET viewcnt = viewcnt + 1
+		WHERE bno = #{bno}
+	</update>
+	
+	<update id="goodCnt" parameterType="String">
+		UPDATE tbl_board
+		SET goodcnt = goodcnt + 1
+		WHERE bno = #{bno}
+	</update>
+	
+	<insert id="boardGoodCnt" parameterType="hashmap">
+		INSERT INTO tbl_goodcnt (bid, bno)
+		VALUES (#{bid}, #{bno})
+	</insert>
+	
+	<select id="replyList" parameterType="String" resultType="com.bouquet.dto.ReplyDTO">
+		SELECT * FROM tbl_reply
+		WHERE bno = #{bno}
+	</select>
+	
+	<select id="select_goodCnt" parameterType="String" resultType="String">
+		SELECT bno FROM tbl_reply
+		WHERE bid = #{bid}
+	</select>
+	
+	<select id="sel_goodCnt" parameterType="hashmap" resultType="String">
+		SELECT bid FROM tbl_goodcnt
+		WHERE bid = #{bid} AND bno = #{bno}
+	</select>
+	
+	<update id="goodCnt_Minus" parameterType="String">
+		UPDATE tbl_board
+		SET goodcnt = goodcnt - 1
+		WHERE bno = #{bno}
+	</update>
+	
+	<delete id="boardGoodCnt_del" parameterType="hashmap">
+		DELETE FROM tbl_goodcnt
+		WHERE bid = #{bid} AND bno = #{bno}
+	</delete>
+	
+	<select id="goodCheck" parameterType="hashmap" resultType="com.bouquet.dto.GoodCntDTO">
+		SELECT * FROM tbl_goodcnt
+		WHERE bid= #{bid} AND bno = #{bno}
+	</select>
+	
+	<insert id="replyAdd" parameterType="com.bouquet.dto.ReplyDTO">
+		INSERT INTO tbl_reply(rno, content, writer, bno)
+		VALUES (seq_reply.NEXTVAL, #{content}, #{writer}, #{bno})
+	</insert>
+	
+	<delete id="replyRemove" parameterType="com.bouquet.dto.ReplyDTO">
+		DELETE FROM tbl_reply
+		WHERE rno = #{rno}
+	</delete>
+	
+	<update id="replyCntPlus" parameterType="int">
+		UPDATE tbl_board
+		SET replycnt = replycnt + 1
+		WHERE bno = #{bno}
+	</update>
+	
+	<update id="replyCntMinus" parameterType="int">
+		UPDATE tbl_board
+		SET replycnt = replycnt - 1
+		WHERE bno = #{bno}
+	</update>
 </mapper>

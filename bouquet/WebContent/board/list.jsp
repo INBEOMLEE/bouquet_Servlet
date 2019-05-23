@@ -264,20 +264,19 @@ section {
 					<th>제목</th>
 					<th>작성자</th>
 					<th>작성일</th>
-					<th>좋아요</th>
 					<th>조회수</th>
+					<th>좋아요</th>
 					<th>첨부</th>
 				</tr>
 				<c:forEach items="${list}" var="bDto">
 					<!-- 현재시간 구하기 -->
 					<jsp:useBean id="now" class="java.util.Date" />
 					<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
-					<fmt:formatDate value="${bDto.regdate}" pattern="yyyy-MM-dd"
-						var="regdate" />
+					<fmt:formatDate value="${bDto.regdate}" pattern="yyyy-MM-dd" var="regdate" />
 					<tr>
 						<td>${bDto.bno}</td>
 						<td>
-							<a href="#">${bDto.title} 
+							<a href="${path}/boardView.bouquet?bno=${bDto.bno}">${bDto.title} 
 								<c:if test="${bDto.replycnt > 0}">
 									<span class="replyCnt_Color">${bDto.replycnt}</span>
 								</c:if> 
@@ -297,8 +296,8 @@ section {
 								</c:otherwise>
 							</c:choose>
 						</td>
-						<td><i class="fas fa-heart"></i> ${bDto.goodcnt}</td>
 						<td><i class="fas fa-eye"></i> ${bDto.viewcnt}</td>
+						<td><i class="fas fa-heart"></i> ${bDto.goodcnt}</td>
 						<td><i class="far fa-file-alt"></i></td>
 					</tr>
 				</c:forEach>

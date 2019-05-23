@@ -12,21 +12,27 @@ import javax.servlet.http.HttpServletResponse;
 import com.bouquet.action.Action;
 import com.bouquet.action.ActionForward;
 import com.bouquet.action.BoardListAction;
+import com.bouquet.action.BoardViewAction;
+import com.bouquet.action.CommentListAction;
 import com.bouquet.action.ConstractAction;
 import com.bouquet.action.DropMemberAction;
 import com.bouquet.action.DropMemberPlayAction;
+import com.bouquet.action.GoodCntMinusAction;
+import com.bouquet.action.GoodCntPlusAction;
 import com.bouquet.action.IdCheckAction;
 import com.bouquet.action.IndexAction;
 import com.bouquet.action.InfoUpdateAction;
 import com.bouquet.action.InfoUpdatePlayAction;
+import com.bouquet.action.LogOutAjaxAction;
 import com.bouquet.action.LoginAjaxAction;
 import com.bouquet.action.LoginOutAction;
-import com.bouquet.action.LogOutAjaxAction;
 import com.bouquet.action.MemberAction;
 import com.bouquet.action.MemberPlayAction;
 import com.bouquet.action.PwCheckAction;
 import com.bouquet.action.PwUpdateAction;
 import com.bouquet.action.PwUpdatePlayAction;
+import com.bouquet.action.ReplyAddAction;
+import com.bouquet.action.ReplyRemoveAction;
 
 
 
@@ -110,7 +116,28 @@ public class FrontController extends HttpServlet {
 		} else if(command.equals("/boardList.bouquet")) {
 			action = new BoardListAction();
 			forward = action.excute(request, response);
+		} else if(command.equals("/boardView.bouquet")) {
+			action = new BoardViewAction();
+			forward = action.excute(request, response);
+		} else if(command.equals("/goodCntPlus.bouquet")) {
+			action = new GoodCntPlusAction();
+			forward = action.excute(request, response);
+		} else if(command.equals("/goodCntMinus.bouquet")) {
+			action = new GoodCntMinusAction();
+			forward = action.excute(request, response);
+		} else if(command.equals("/commentlist.bouquet")) {
+			action = new CommentListAction();
+			forward = action.excute(request, response);
+		} else if(command.equals("/replyAdd.bouquet")) {
+			action = new ReplyAddAction();
+			forward = action.excute(request, response);
+		} else if(command.equals("/replyRemove.bouquet")) {
+			action = new ReplyRemoveAction();
+			forward = action.excute(request, response);
 		}
+		
+		
+		
 		
 		
 		if(forward != null) {
