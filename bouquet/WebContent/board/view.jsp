@@ -269,9 +269,86 @@
 		display: none;
 		
 	}
+	#modal2 {
+		position: fixed;
+		z-index: 3;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		overflow: auto;
+		background-color: rgba(0, 0, 0, 0.6);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		display: none;
+	}
+	.modal_title {
+		background-color: #D8B8B6;
+		color: white;
+		border-radius: 15px 15px 0px 0px;
+		font-size: 20px;
+		padding: 10px;
+		width: 700px;
+		font-weight: 600;
+		height: 45px;
+		line-height: 30px;
+	}
+	.modal_content {
+		padding: 50px 10px 140px 10px;
+		width: 700px;
+		text-align: center;
+		color: #363636;
+		font-size: 25px;
+		font-weight: 600;
+		background-color: white;
+		height: 70px;
+		border-radius: 0px 0px 15px 15px;
+	}
+	.modal_content span{
+		color: #FFB9B9;
+	}
+	.no_btn {
+		text-decoration: none;
+		color: #5A5A5A;
+		border-radius: 15px;
+		border: 2px solid #5A5A5A;
+		width: 130px;
+		margin: 0px 50px;
+		display: inline-block;
+		font-size: 25px;
+		font-weight: 600;
+		line-height: 38px;
+	}
+	.yes_btn {
+		text-decoration: none;
+		color: #5A5A5A;
+		border-radius: 15px;
+		border: 2px solid #5A5A5A;
+		width: 130px;
+		margin: 0px 50px;
+		display: inline-block;
+		font-size: 25px;
+		font-weight: 600;
+		line-height: 38px;
+	}
+	.modal_content a:hover {
+		background-color: #D8B8B6;
+		border: 2px solid #D8B8B6;
+		color: white;
+	}
 </style>
 </head>
 <body>
+	<div id="modal2">
+		<div class="modal_page">
+			<div class="modal_title">게시글 삭제</div>
+			<div class="modal_content">정말 <span>게시글</span>을 삭제하시겠습니까?<br><br>
+				<a href="#" class="no_btn">아니오</a>
+				<a href="#" class="yes_btn">네</a>
+			</div>
+		</div>
+	</div>
 	<section>
 		<div class="board_inline">
 			<div class="board_topic">질문 게시판</div>
@@ -322,14 +399,13 @@
 			</c:if>
 			<c:if test="${sessionScope.loginUser.bid == bDto.writer}">			
 				<div class="btn_style float">게시글 수정</div>
-				<div class="btn_style float">게시글 삭제</div>
+				<div class="btn_style float delete_btn">게시글 삭제</div>
 			</c:if>
 		</div>
 		<div class="comment_inline">
 			<div id="commentList">
 			</div>
 		</div>
-		<input type="hidden" value="${gDto.bid}" id="heart_check">
 	</section>
 	
 	<script type="text/javascript">
@@ -337,8 +413,9 @@
 			comment_list();
 			
 			var flag = 0;
+			var good_check = "${gDto.bid}";
 			
-			if($('#heart_check').val() != "") {
+			if(good_check != "") {
 				$('.good_btn').eq(0).css('display', 'none');
 				$('.good_btn').eq(1).css('display', 'inline-block');
 				flag = 1;
@@ -389,6 +466,14 @@
 					flag = 0;
 				}
 			}); 
+			
+			$('.delete_btn').click(function(){
+				$('#modal2').css('display', 'flex');
+			});
+			
+			$('.no_btn').click(function(){
+				$('#modal2').css('display', 'none');
+			});
 		});
 		
 		$(document).on("click", "#returnGo", function(){
@@ -407,8 +492,7 @@
 		}
 		
 		$(document).on("click", ".reply_btn", function(){
-			oEditors.getById["replyInsert"].
-			exec("UPDATE_CONTENTS_FIELD", []);
+			oEditors.getById["replyInsert"].exec("UPDATE_CONTENTS_FIELD", []);
 			
 			
 			var content = $('#replyInsert').val();

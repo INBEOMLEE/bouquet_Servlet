@@ -31,6 +31,9 @@ import com.bouquet.action.MemberPlayAction;
 import com.bouquet.action.PwCheckAction;
 import com.bouquet.action.PwUpdateAction;
 import com.bouquet.action.PwUpdatePlayAction;
+import com.bouquet.action.RegisterAjaxAction;
+import com.bouquet.action.RegisterPlayAction;
+import com.bouquet.action.RegisterViewAction;
 import com.bouquet.action.ReplyAddAction;
 import com.bouquet.action.ReplyRemoveAction;
 
@@ -134,9 +137,16 @@ public class FrontController extends HttpServlet {
 		} else if(command.equals("/replyRemove.bouquet")) {
 			action = new ReplyRemoveAction();
 			forward = action.excute(request, response);
+		} else if(command.equals("/registerAjax.bouquet")) {
+			action = new RegisterAjaxAction();
+			forward = action.excute(request, response);
+		} else if(command.equals("/registerView.bouquet")) {
+			action = new RegisterViewAction();
+			forward = action.excute(request, response);
+		} else if(command.equals("/registerPlay.bouquet")) {
+			action = new RegisterPlayAction();
+			forward = action.excute(request, response);
 		}
-		
-		
 		
 		
 		

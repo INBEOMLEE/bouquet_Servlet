@@ -462,7 +462,7 @@
 				var regKor = /[^가-힣]/;
 				var regEmpty = /\s/g;
 				
-				if(name == "" || name.lengh == 0) {
+				if(name == "" || name.length == 0) {
 					$('.member_err_msg').eq(3).text('필수 입력 정보입니다.')
 					   				   .css('display', 'block')
 					  				   .css('color', 'tomato');
@@ -498,7 +498,7 @@
 				var phone = $.trim($(this).val());
 				var regEmpty = /\s/g;
 				var regPhone = /^(?:(010\d{4})|(01[1|6|7|8|9]\d{3,4}))(\d{4})$/;
-				if(phone == "" || phone.lengh == 0) {
+				if(phone == "" || phone.length == 0) {
 					$('.member_err_msg').eq(4).text('필수 입력 정보입니다.')
 					   				   .css('display', 'block')
 					  				   .css('color', 'tomato');
@@ -536,7 +536,7 @@
 				var regEmpty = /\s/g;
 				var emailReg = RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
 				
-				if(email == "" || email.lengh == 0) {
+				if(email == "" || email.length == 0) {
 					$('.member_err_msg').eq(5).text('필수 입력 정보입니다.')
 					   				   .css('display', 'block')
 					  				   .css('color', 'tomato');
@@ -570,7 +570,7 @@
 				var regEmpty = /\s/g;
 				var emailReg = RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
 				
-				if(url == "" || url.lengh == 0) {
+				if(url == "" || url.length == 0) {
 					$('.member_err_msg').eq(5).text('필수 입력 정보입니다.')
 					   				   .css('display', 'block')
 					  				   .css('color', 'tomato');

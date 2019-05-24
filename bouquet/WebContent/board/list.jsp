@@ -303,7 +303,7 @@ section {
 				</c:forEach>
 			</table>
 			
-			<div class="board_insert">게시글 등록</div>
+			<div class="board_insert" id="boardAdd">게시글 등록</div>
 			
 			<c:if test="${!empty keyword}">
 				<div id="search_result">
@@ -345,6 +345,7 @@ section {
 	<script type="text/javascript">
 		var flag = 0;
 		$(document).ready(function() {
+			
 			$('.board_search i').click(function() {
 				if (flag == 0) {
 					$('.slidebar').css('display', 'block');
@@ -378,6 +379,26 @@ section {
 					$('#search_board').css('border', '1px solid #ddd');
 				}
 				location.href="${path}/boardList.bouquet?search_option="+search_option+"&keyword="+keyword;
+			});
+			
+			$("#boardAdd").click(function(){
+				$.ajax({
+					url: "registerAjax.bouquet",
+					type: "POST",
+					dataType: "json",
+					success: function(data){
+						if(data.message == "login") {
+							location.href="registerView.bouquet";
+						} else if(data.message == "nologin") {
+							$('#modal').css('display', 'flex');
+							$('.err_msg').text('로그인이 필요한 시스템입니다.')
+										 .css('display', 'block');
+						}
+					},
+					error: function(){
+						alert("System Error!!!");
+					} 
+				});
 			});
 		});
 		

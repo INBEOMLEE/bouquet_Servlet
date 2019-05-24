@@ -103,17 +103,20 @@ public class BoardDAO {
 		}
 	}
 	
-	
-	public int replyCntPlus(int bno) {
+	// 댓글 등록 또는 삭제 시 해당 게시글 replycnt +1 or -1
+	public void replyCntUpdate(String bno, String flag) {
 		sqlSession = sqlSessionFactory.openSession(true);
+		
 		try {
-			result = sqlSession.update("replyCntPlus", bno);
+			HashMap<String, String> map = new HashMap<>();
+			map.put("bno", bno);
+			map.put("flag", flag);
+			sqlSession.update("replyCntUpdate", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			sqlSession.close();
 		}
-		return result;
 	}
 	
 	public int replyCntMinus(int bno) {
@@ -128,12 +131,17 @@ public class BoardDAO {
 		return result;
 	}
 	
-	
-	
-	
-	
-	
-	
+	public int boardRegister(BoardDTO bDto) {
+		sqlSession = sqlSessionFactory.openSession(true);
+		try {
+			result = sqlSession.insert("boardRegister", bDto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return result;
+	}
 	
 	
 	

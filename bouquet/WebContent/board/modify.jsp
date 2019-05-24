@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>BOUQUET : 게시글 등록</title>
+<title>BOUQUET : 게시글 수정</title>
 <style type="text/css">
 	section {
 		width: 100%;
@@ -101,7 +101,7 @@
 			<textarea></textarea>
 			<div class="font_style">작성자</div>
 			<input type="text" class="input_style">
-			<div class="board_insert float">게시글 등록</div>
+			<div class="board_insert float">게시글 수정</div>
 			<label for="input_none" class="board_insert">첨부파일 등록</label>
 			<input type="file" class="board_insert" id="input_none">
 			<div class="file_name">선택된 파일 없음</div>

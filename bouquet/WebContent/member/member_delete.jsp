@@ -183,6 +183,7 @@
 </style>
 </head>
 <body>
+	
 	<div id="modal">
 		<div class="modal_page">
 			<div class="modal_title">회원 탈퇴</div>

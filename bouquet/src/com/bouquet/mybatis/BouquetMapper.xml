@@ -140,8 +140,8 @@
 	</update>
 	
 	<insert id="boardGoodCnt" parameterType="hashmap">
-		INSERT INTO tbl_goodcnt (bid, bno)
-		VALUES (#{bid}, #{bno})
+		INSERT INTO tbl_goodcnt (rno, bid, bno)
+		VALUES (seq_goodcnt.NEXTVAL, #{bid}, #{bno})
 	</insert>
 	
 	<select id="replyList" parameterType="String" resultType="com.bouquet.dto.ReplyDTO">
@@ -185,15 +185,19 @@
 		WHERE rno = #{rno}
 	</delete>
 	
-	<update id="replyCntPlus" parameterType="int">
+	<update id="replyCntUpdate">
 		UPDATE tbl_board
+		<if test="flag == 'plus'">
 		SET replycnt = replycnt + 1
+		</if>
+		<if test="flag == 'minus'">
+		SET replycnt = replycnt - 1
+		</if>
 		WHERE bno = #{bno}
 	</update>
 	
-	<update id="replyCntMinus" parameterType="int">
-		UPDATE tbl_board
-		SET replycnt = replycnt - 1
-		WHERE bno = #{bno}
-	</update>
+	<insert id="boardRegister" parameterType="com.bouquet.dto.BoardDTO">
+		INSERT INTO tbl_board(bno, title, content, writer) 
+		VALUES(seq_board.NEXTVAL, #{title}, #{content}, #{writer})
+	</insert>
 </mapper>
