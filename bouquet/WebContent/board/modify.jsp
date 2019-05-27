@@ -1,11 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
+<c:if test="${sessionScope.loginUser == null}">
+	<script>
+		alert("로그인 하신 후 사용하세요.");
+		location.href="${path}/boardList.bouquet?message=nologin";
+	</script>
+</c:if>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>BOUQUET : 게시글 수정</title>
+<script type="text/javascript" src="${path}/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
 <style type="text/css">
 	section {
 		width: 100%;
@@ -73,21 +80,27 @@
 		text-align: center;
 		font-size: 20px;
 	}
-	.file_name {
-		display: inline-block;
-		height: 35px;
-		line-height: 35px;
-		font-size: 16px;
-		font-weight: 500;
-	}
-	#input_none {
-		display: none;
-	}
-	#file_cancle_btn {
+	#close_file_btn {
 		display: none;
 		position: relative;
-		top: 2px;
+		top: 1px;
 		cursor: pointer;
+	}
+	.register_err_message {
+		color: tomato;
+		margin-left: 20px;
+		margin-top: 20px;
+		text-align: center;
+		display: none;
+	}
+	.close_file_btn {
+		position: relative;
+		top: 1px;
+		cursor: pointer;
+	}
+	.file_msg {
+		color: tomato;
+		display: none;
 	}
 </style>
 </head>
@@ -95,41 +108,129 @@
 	<section>
 		<div class="board_inline">
 			<div class="board_topic">질문 게시판</div>
-			<div class="font_style">제목</div>
-			<input type="text" class="input_style">
-			<div class="font_style">내용</div>
-			<textarea></textarea>
-			<div class="font_style">작성자</div>
-			<input type="text" class="input_style">
-			<div class="board_insert float">게시글 수정</div>
-			<label for="input_none" class="board_insert">첨부파일 등록</label>
-			<input type="file" class="board_insert" id="input_none">
-			<div class="file_name">선택된 파일 없음</div>
-			<div id="file_cancle_btn"><i class="fas fa-times"></i></div>
+			<form action="registerPlay.bouquet" method="POST" id="frm_bin" name="frm_bin" enctype="multipart/form-data">
+				<div class="font_style">제목</div>
+				<input type="text" class="input_style" id="input_title" name="input_title" value="${bDto.title}">
+				<div class="font_style">내용</div>
+				<textarea id="boardUpdate" class="input_content" name="input_content">${bDto.content}</textarea>
+				<script type="text/javascript">
+					var oEditors = [];
+					nhn.husky.EZCreator.createInIFrame({
+					 oAppRef: oEditors,
+					 elPlaceHolder: "boardUpdate",
+					 sSkinURI: "<%=request.getContextPath()%>/smarteditor/SmartEditor2Skin.html",
+					 fCreator: "createSEditor2"
+					});
+				</script>
+				<div class="register_err_message">내용을 입력해주세요.</div>
+				<div class="font_style">작성자</div>
+				<input type="text" class="input_style" id="input_writer" name="input_writer" value="${sessionScope.loginUser.bid}" readonly="readonly">
+				<div class="board_insert float" id="update_btn">게시글 수정</div>
+				
+				
+				<div id="file_wrap">
+					<input type="file" name="uploadfile" id="uploadfile" style="display: none">
+					<input type="button" class="btn btn-file board_insert" value="첨부파일 선택">
+					<span class="files" id="file_name" style="height:29px; border: none;">선택된 파일 없음</span>
+					<span id="now_file_size"></span>
+					<i class="fas fa-times" id="close_file_btn" style="display: none"></i>
+				</div>
+					<c:choose>
+						<c:when test="${bDto.filesize > 0}">
+							<div id="file_list" style="padding: 15px 0px 0px 20px;">
+								<span class="files" id="file_list_filename" style="height:29px; border: none;">${bDto.filename}</span>
+								<c:choose>
+									<c:when test="${bDto.filesize > 1024 * 1024}">
+										<span class="file_list_filesize">(<fmt:formatNumber type="number" pattern="0.00" value="${bDto.filesize / 1024 / 1024}"></fmt:formatNumber> MB)</span>
+									</c:when>
+									<c:otherwise>
+										<span class="file_list_filesize">(<fmt:formatNumber type="number" pattern="0.00" value="${bDto.filesize / 1024}"></fmt:formatNumber> KB)</span>
+									</c:otherwise>
+								</c:choose>
+								<i class="fas fa-times close_file_btn" style="display: inline-block;"></i>
+								<span class="file_msg">[첨부파일 삭제됨]</span>
+							</div>
+						</c:when>
+						<c:otherwise>
+						</c:otherwise>
+					</c:choose>
+				<input type="hidden" value="${bno}" name="input_bno">
+			</form>
 		</div>
 	</section>
 	<script type="text/javascript">
 	$(document).ready(function(){
-		$('#input_none').on('change', function(){
-			if(window.FileReader){
-				var filename = $(this)[0].files[0].name;
+		$('.btn-file').click(function(){
+			$('#uploadfile').click();
+		});
+		
+		$('#uploadfile').on('change', function(){
+			var filesize = $(this)[0].files;
+			if(filesize.length < 1) {
+				$("#file_name").text("선택된 파일 없음");
+				$("#close_file_btn").css("display", "none");
 			} else {
-				var filename = $(this).val().split('/').pop().split('\\').pop();
-			}
-			
-			$('.file_name').text(filename);
-			
-			if($(this).val() != null) {
-				$('#file_cancle_btn').css('display', 'inline-block');
-			} else {
-				$('#file_cancle_btn').css('display', 'none');
+				var filename = this.files[0].name;
+				var size = this.files[0].size;
+				var maxSize = 10 * 1024 * 1024; // 10mb
+				
+				if(size > maxSize) {
+					alert("첨부파일 사이즈는 10MB 이내로 등록 가능합니다.");
+					$("#file_name").text("선택된 파일 없음");
+					$("#uploadfile").val("");
+					$("#now_file_size").text("");
+				} else {
+					$("#file_name").text(filename);
+					if(size > (1024 * 1024)){
+						var formSize = size/(1024*1024);
+						$("#now_file_size").text("(" + formSize.toFixed(2) + "MB)");
+					} else {
+						var formSize = size/1024;
+						$("#now_file_size").text("(" + formSize.toFixed(2) + "KB)");
+					}
+					$("#close_file_btn").css("display", "inline-block");
+				}
 			}
 		});
 		
-		$('#file_cancle_btn').click(function(){
-			$('#input_none').val("");
-			$('.file_name').text("선택된 파일 없음");
-			$(this).css('display', 'none');
+		$('#close_file_btn').click(function(){
+			$("#uploadfile").replaceWith($("#uploadfile").clone(true));
+			$("#uploadfile").val("");
+			$("#file_name").text("선택된 파일 없음");
+			$('#close_file_btn').css("display", "none");
+			$("#now_file_size").text("");
+		});
+		
+		
+		var filename = $('#file_list_filename').text();
+		
+		$('#update_btn').click(function(){
+			oEditors.getById["boardUpdate"].exec("UPDATE_CONTENTS_FIELD", []);
+			
+			var title = $('#input_title').val();
+			var content = $('.input_content').val();
+			
+			if(title == "" || title.length == 0) {
+				$('.register_err_message').css("display", "block")
+				                          .text("제목을 입력해주세요.");
+				return false;
+			} else if(content == "<p><br></p>") {
+				$('.register_err_message').css("display", "block")
+                                          .text("내용을 입력해주세요.");
+				return false;
+			}
+			
+			$('#frm_bin').submit();
+		});
+		
+		
+		$('.close_file_btn').click(function(){
+			$('#file_list_filename').css("color", "#AAA")
+									.css("text-decoration", "line-through");
+			$('.file_list_filesize').css("color", "#AAA")
+									.css("text-decoration", "line-through");
+			$('.file_msg').css("display", "inline-block");
+			$(this).css("display", "none");
 		});
 		
 	});

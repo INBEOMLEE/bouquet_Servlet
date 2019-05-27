@@ -99,7 +99,7 @@
 	<section>
 		<div class="board_inline">
 			<div class="board_topic">질문 게시판</div>
-			<form action="registerPlay.bouquet" method="POST" id="frm_bin" name="frm_bin">
+			<form action="registerPlay.bouquet" method="POST" id="frm_bin" name="frm_bin" enctype="multipart/form-data">
 				<div class="font_style">제목</div>
 				<input type="text" class="input_style" id="input_title" name="input_title">
 				<div class="font_style">내용</div>
@@ -117,8 +117,6 @@
 				<div class="font_style">작성자</div>
 				<input type="text" class="input_style" id="input_writer" name="input_writer" value="${sessionScope.loginUser.bid}" readonly="readonly">
 				<div class="board_insert float" id="insert_btn">게시글 등록</div>
-				
-				
 				<div id="file_wrap">
 					<input type="file" name="uploadfile" id="uploadfile" style="display: none">
 					<input type="button" class="btn btn-file board_insert" value="첨부파일 선택">
@@ -126,17 +124,11 @@
 					<span id="now_file_size"></span>
 					<i class="fas fa-times" id="close_file_btn" style="display: none"></i>
 				</div>
-				
-				<!-- <label for="input_none" class="board_insert">첨부파일 등록</label>
-				<input type="file" class="board_insert" id="input_none">
-				<div class="file_name">선택된 파일 없음</div>
-				<div id="file_cancle_btn"><i class="fas fa-times"></i></div> -->
 			</form>
 		</div>
 	</section>
 	<script type="text/javascript">
 	$(document).ready(function(){
-		
 		$('.btn-file').click(function(){
 			$('#uploadfile').click();
 		});
@@ -158,8 +150,13 @@
 					$("#now_file_size").text("");
 				} else {
 					$("#file_name").text(filename);
-					var formSize = size/(1024*1024);
-					$("#now_file_size").text("(" + formSize.toFixed(2) + "mb)");
+					if(size > (1024 * 1024)){
+						var formSize = size/(1024*1024);
+						$("#now_file_size").text("(" + formSize.toFixed(2) + "MB)");
+					} else {
+						var formSize = size/1024;
+						$("#now_file_size").text("(" + formSize.toFixed(2) + "KB)");
+					}
 					$("#close_file_btn").css("display", "inline-block");
 				}
 			}

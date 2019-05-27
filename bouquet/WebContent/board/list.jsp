@@ -274,7 +274,7 @@ section {
 					<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
 					<fmt:formatDate value="${bDto.regdate}" pattern="yyyy-MM-dd" var="regdate" />
 					<tr>
-						<td>${bDto.bno}</td>
+						<td id="bDto_bno">${bDto.bno}</td>
 						<td>
 							<a href="${path}/boardView.bouquet?bno=${bDto.bno}">${bDto.title} 
 								<c:if test="${bDto.replycnt > 0}">
@@ -298,7 +298,14 @@ section {
 						</td>
 						<td><i class="fas fa-eye"></i> ${bDto.viewcnt}</td>
 						<td><i class="fas fa-heart"></i> ${bDto.goodcnt}</td>
-						<td><i class="far fa-file-alt"></i></td>
+						<c:choose>
+							<c:when test="${bDto.filesize > 0}">
+								<td><i class="fas fa-paperclip"></i></td>
+							</c:when>
+							<c:otherwise>
+								<td></td>
+							</c:otherwise>
+						</c:choose>
 					</tr>
 				</c:forEach>
 			</table>

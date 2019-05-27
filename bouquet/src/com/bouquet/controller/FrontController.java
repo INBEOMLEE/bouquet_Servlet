@@ -15,6 +15,7 @@ import com.bouquet.action.BoardListAction;
 import com.bouquet.action.BoardViewAction;
 import com.bouquet.action.CommentListAction;
 import com.bouquet.action.ConstractAction;
+import com.bouquet.action.DownloadAction;
 import com.bouquet.action.DropMemberAction;
 import com.bouquet.action.DropMemberPlayAction;
 import com.bouquet.action.GoodCntMinusAction;
@@ -34,8 +35,10 @@ import com.bouquet.action.PwUpdatePlayAction;
 import com.bouquet.action.RegisterAjaxAction;
 import com.bouquet.action.RegisterPlayAction;
 import com.bouquet.action.RegisterViewAction;
+import com.bouquet.action.RemovePlayAction;
 import com.bouquet.action.ReplyAddAction;
 import com.bouquet.action.ReplyRemoveAction;
+import com.bouquet.action.UpdateViewAction;
 
 
 
@@ -146,8 +149,16 @@ public class FrontController extends HttpServlet {
 		} else if(command.equals("/registerPlay.bouquet")) {
 			action = new RegisterPlayAction();
 			forward = action.excute(request, response);
+		} else if(command.equals("/download.bouquet")) {
+			action = new DownloadAction();
+			forward = action.excute(request, response);
+		} else if(command.equals("/removePlay.bouquet")) {
+			action = new RemovePlayAction();
+			forward = action.excute(request, response);
+		} else if(command.equals("/updateView.bouquet")) {
+			action = new UpdateViewAction();
+			forward = action.excute(request, response);
 		}
-		
 		
 		
 		if(forward != null) {

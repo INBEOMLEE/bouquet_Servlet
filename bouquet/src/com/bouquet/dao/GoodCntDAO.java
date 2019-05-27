@@ -94,6 +94,18 @@ public class GoodCntDAO {
 		}
 		return gDto;
 	}
+
+	public int delete_goodCnt(int bno) {
+		sqlSession = sqlSessionFactory.openSession(true);
+		try {
+			result = sqlSession.delete("delete_goodCnt", bno);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return result;
+	}
 	
 	
 	

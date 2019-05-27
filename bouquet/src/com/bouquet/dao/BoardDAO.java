@@ -134,7 +134,20 @@ public class BoardDAO {
 	public int boardRegister(BoardDTO bDto) {
 		sqlSession = sqlSessionFactory.openSession(true);
 		try {
+			System.out.println("★★★★★★★★★★★★★" + bDto.toString());
 			result = sqlSession.insert("boardRegister", bDto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return result;
+	}
+
+	public int removeBoard(int bno) {
+		sqlSession = sqlSessionFactory.openSession(true);
+		try {
+			result = sqlSession.delete("removeBoard", bno);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

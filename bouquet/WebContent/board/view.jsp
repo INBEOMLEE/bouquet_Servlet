@@ -343,7 +343,7 @@
 	<div id="modal2">
 		<div class="modal_page">
 			<div class="modal_title">게시글 삭제</div>
-			<div class="modal_content">정말 <span>게시글</span>을 삭제하시겠습니까?<br><br>
+			<div class="modal_content"><span>'해당 게시글'</span> 을 삭제하시겠습니까?<br><br>
 				<a href="#" class="no_btn">아니오</a>
 				<a href="#" class="yes_btn">네</a>
 			</div>
@@ -381,7 +381,22 @@
 				</tr>
 				<tr class="table_width">
 					<th>첨부파일</th>
-					<td>첨부된 파일 없음</td>
+					<c:choose>
+						<c:when test="${bDto.filesize > 0}">
+							<c:choose>
+								<c:when test="${bDto.filesize > 1024 * 1024}">
+									<td><a href="download.bouquet?file=${bDto.filename}">${bDto.filename}<br>(<fmt:formatNumber type="number" pattern="0.00" value="${bDto.filesize / 1024 / 1024}"></fmt:formatNumber> MB)</a></td>
+								</c:when>
+								<c:otherwise>
+									<td><a href="download.bouquet?file=${bDto.filename}">${bDto.filename}<br>(<fmt:formatNumber type="number" pattern="0.00" value="${bDto.filesize / 1024}"></fmt:formatNumber> KB)</a></td>
+								</c:otherwise>
+							</c:choose>
+						</c:when>
+						<c:otherwise>
+							<td>첨부된 파일 없음</td>
+						</c:otherwise>
+					</c:choose>
+					
 					<th>좋아요</th>
 					<td><i class="fas fa-heart" ></i> <span id="goodcnt">${bDto.goodcnt}</span></td>
 					<th>조회수</th>
@@ -398,7 +413,7 @@
 				<div class="good_btn" id="good_btn_none"><i class="fas fa-heart"></i></div>
 			</c:if>
 			<c:if test="${sessionScope.loginUser.bid == bDto.writer}">			
-				<div class="btn_style float">게시글 수정</div>
+				<div class="btn_style float update_btn">게시글 수정</div>
 				<div class="btn_style float delete_btn">게시글 삭제</div>
 			</c:if>
 		</div>
@@ -504,7 +519,6 @@
 				var bno = "${bDto.bno}";
 				$("#re_bno").val(bno);
 				
-				
 				$.ajax({
 					url: "replyAdd.bouquet",
 					type: "POST",
@@ -543,6 +557,15 @@
 				} 
 			});
 		});
+		
+		$(document).on("click", ".yes_btn", function(){
+			location.href="removePlay.bouquet?bno=${bDto.bno}&filename=${bDto.filename}";
+		});
+		
+		$(document).on("click", ".update_btn", function(){
+			location.href="updateView.bouquet?bno=${bDto.bno}";
+		});
+		
 	</script>
 </body>
 </html>
