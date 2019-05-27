@@ -265,7 +265,8 @@ CREATE TABLE tbl_reply(
 
 ALTER TABLE tbl_reply
 ADD CONSTRAINT tbl_reply_fk_bno
-FOREIGN KEY(bno) REFERENCES tbl_board(bno);
+FOREIGN KEY(bno) REFERENCES tbl_board(bno)
+ON DELETE CASCADE;
 
 COMMIT;
 
