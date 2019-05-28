@@ -210,4 +210,13 @@
 		DELETE FROM tbl_goodcnt
 		WHERE bno = #{bno}
 	</delete>
+	
+	<update id="modify" parameterType="com.bouquet.dto.BoardDTO">
+		UPDATE tbl_board
+		SET title = #{title},
+		    content = #{content},
+		    filename = #{filename},
+		    filesize = #{filesize}
+		WHERE bno = #{bno}
+	</update>
 </mapper>

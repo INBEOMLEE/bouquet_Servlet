@@ -344,8 +344,8 @@
 		<div class="modal_page">
 			<div class="modal_title">게시글 삭제</div>
 			<div class="modal_content"><span>'해당 게시글'</span> 을 삭제하시겠습니까?<br><br>
-				<a href="#" class="no_btn">아니오</a>
-				<a href="#" class="yes_btn">네</a>
+				<a class="no_btn">아니오</a>
+				<a class="yes_btn">네</a>
 			</div>
 		</div>
 	</div>
@@ -424,6 +424,19 @@
 	</section>
 	
 	<script type="text/javascript">
+	
+		history.pushState(null, document.title, location.href);
+		window.addEventListener('popstate', function(event){
+			history.pushState(null, document.title, '<%=referer%>');
+			location.reload(); //리프레쉬
+		});
+		
+		/* // 뒤로가기 막기
+		history.pushState(null, null, location.href);
+		window.onpopstate = function () {
+			history.go(1);
+		} */
+		
 		$(document).ready(function(){
 			comment_list();
 			

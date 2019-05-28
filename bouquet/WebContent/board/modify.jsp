@@ -73,6 +73,7 @@
 		background-color: #D8ADB6;
 		color: white;
 		cursor: pointer;
+		width: 125px;
 	}
 	.float {
 		float: right;
@@ -85,6 +86,7 @@
 		position: relative;
 		top: 1px;
 		cursor: pointer;
+		color: #363636;
 	}
 	.register_err_message {
 		color: tomato;
@@ -102,13 +104,20 @@
 		color: tomato;
 		display: none;
 	}
+	#open_file_btn {
+		color: yellowgreen;
+		cursor: pointer;
+	}
+	.file_list_filesize {
+		color: #363636;
+	}
 </style>
 </head>
 <body>
 	<section>
 		<div class="board_inline">
 			<div class="board_topic">질문 게시판</div>
-			<form action="registerPlay.bouquet" method="POST" id="frm_bin" name="frm_bin" enctype="multipart/form-data">
+			<form action="modifyPlay.bouquet" method="POST" id="frm_bin" name="frm_bin" enctype="multipart/form-data">
 				<div class="font_style">제목</div>
 				<input type="text" class="input_style" id="input_title" name="input_title" value="${bDto.title}">
 				<div class="font_style">내용</div>
@@ -125,20 +134,11 @@
 				<div class="register_err_message">내용을 입력해주세요.</div>
 				<div class="font_style">작성자</div>
 				<input type="text" class="input_style" id="input_writer" name="input_writer" value="${sessionScope.loginUser.bid}" readonly="readonly">
-				<div class="board_insert float" id="update_btn">게시글 수정</div>
-				
-				
-				<div id="file_wrap">
-					<input type="file" name="uploadfile" id="uploadfile" style="display: none">
-					<input type="button" class="btn btn-file board_insert" value="첨부파일 선택">
-					<span class="files" id="file_name" style="height:29px; border: none;">선택된 파일 없음</span>
-					<span id="now_file_size"></span>
-					<i class="fas fa-times" id="close_file_btn" style="display: none"></i>
-				</div>
+				<input class="board_insert" value="현재 첨부파일">
 					<c:choose>
 						<c:when test="${bDto.filesize > 0}">
-							<div id="file_list" style="padding: 15px 0px 0px 20px;">
-								<span class="files" id="file_list_filename" style="height:29px; border: none;">${bDto.filename}</span>
+							<div id="file_list" style="display: inline-block;">
+								<span class="files" id="file_list_filename" style="height:29px; border: none; color: #363636;">${bDto.filename}</span>
 								<c:choose>
 									<c:when test="${bDto.filesize > 1024 * 1024}">
 										<span class="file_list_filesize">(<fmt:formatNumber type="number" pattern="0.00" value="${bDto.filesize / 1024 / 1024}"></fmt:formatNumber> MB)</span>
@@ -148,13 +148,27 @@
 									</c:otherwise>
 								</c:choose>
 								<i class="fas fa-times close_file_btn" style="display: inline-block;"></i>
-								<span class="file_msg">[첨부파일 삭제됨]</span>
+								<span class="file_msg">[첨부파일 삭제됨]
+									<i class="fas fa-check" id="open_file_btn"></i>
+								</span>
 							</div>
 						</c:when>
 						<c:otherwise>
 						</c:otherwise>
 					</c:choose>
+				<div class="board_insert float" id="update_btn">게시글 수정</div>
+				<div id="file_wrap">
+					<input type="file" name="uploadfile" id="uploadfile" style="display: none">
+					<input type="button" class="btn btn-file board_insert" value="첨부파일 선택">
+					<span class="files" id="file_name" style="height:29px; border: none;">선택된 파일 없음</span>
+					<span id="now_file_size"></span>
+					<i class="fas fa-times" id="close_file_btn" style="display: none"></i>
+				</div>
+				
 				<input type="hidden" value="${bno}" name="input_bno">
+				<input type="hidden" value="${bDto.filename}" name="input_basic_filename">
+				<input type="hidden" value="${bDto.filesize}" name="input_basic_filesize">
+				<input type="hidden" value="yes" name="input_check_yn" id="input_check_yn">
 			</form>
 		</div>
 	</section>
@@ -201,7 +215,6 @@
 			$("#now_file_size").text("");
 		});
 		
-		
 		var filename = $('#file_list_filename').text();
 		
 		$('#update_btn').click(function(){
@@ -223,15 +236,26 @@
 			$('#frm_bin').submit();
 		});
 		
-		
 		$('.close_file_btn').click(function(){
 			$('#file_list_filename').css("color", "#AAA")
 									.css("text-decoration", "line-through");
 			$('.file_list_filesize').css("color", "#AAA")
 									.css("text-decoration", "line-through");
 			$('.file_msg').css("display", "inline-block");
+			$('#input_check_yn').val("no");
 			$(this).css("display", "none");
 		});
+		
+		$('#open_file_btn').click(function(){
+			$('#file_list_filename').css("color", "#363636")
+							        .css("text-decoration", "none");
+			$('.file_list_filesize').css("color", "#363636")
+									.css("text-decoration", "none");
+			$('.file_msg').css("display", "none");
+			$('.close_file_btn').css("display", "inline-block");
+			$('#input_check_yn').val("yes");
+		});
+		
 		
 	});
 	</script>

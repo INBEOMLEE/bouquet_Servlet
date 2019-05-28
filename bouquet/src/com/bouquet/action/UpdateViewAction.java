@@ -22,6 +22,7 @@ public class UpdateViewAction implements Action {
 		BoardDTO bDto = bDao.view(bno);
 		
 		request.setAttribute("bDto", bDto);
+		request.setAttribute("bno", bno);
 		
 		ActionForward forward = new ActionForward();
 		forward.setPath(url);

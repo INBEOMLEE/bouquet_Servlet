@@ -58,21 +58,21 @@
 				<div class="header_menu">
 					<c:choose>
 						<c:when test="${empty sessionScope.loginUser}">
-							<a href="#" id="modal_open">로그인</a>
+							<a id="modal_open" style="cursor: pointer;">로그인</a>
 							<a href="${path}/constract.bouquet">회원가입</a>
 						</c:when>
 						<c:otherwise>
-							<a href="#">
+							<a>
 								${sessionScope.loginUser.bname}
 								( ${sessionScope.loginUser.bid} )
 							</a>
-							<a href="#" class="logout_btn">로그아웃</a>
+							<a class="logout_btn">로그아웃</a>
 							<a href="${path}/pwUpdate.bouquet">비밀번호 수정</a>
 							<a href="${path}/infoUpdate.bouquet">회원정보 수정</a>
 							<a href="${path}/dropMember.bouquet">회원 탈퇴</a>
 						</c:otherwise>
 					</c:choose>
-					<a href="#">고객센터</a>
+					<a>고객센터</a>
 				</div>
 			</div>
 		</div>
@@ -86,7 +86,7 @@
 				<div class="nav_inline">
 					<ul>
 						<li>
-							<a href="#">베스트상품</a>
+							<a>베스트상품</a>
 							<div class="dropdown01">
 								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">BEST</a>
 								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">SPECIAL</a>
@@ -95,7 +95,7 @@
 							</div>
 						</li>
 						<li>
-							<a href="#">새로운상품</a>
+							<a>새로운상품</a>
 							<div class="dropdown01">
 								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">BEST</a>
 								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">SPECIAL</a>
@@ -104,7 +104,7 @@
 							</div>
 						</li>
 						<li>
-							<a href="#">계절별상품</a>
+							<a>계절별상품</a>
 							<div class="dropdown01">
 								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">BEST</a>
 								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">SPECIAL</a>
@@ -115,15 +115,15 @@
 						<li>
 							<a href="${path}/boardList.bouquet">질문게시판</a>
 							<div class="dropdown01">
-								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">BEST</a>
-								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">SPECIAL</a>
-								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">LUXURY</a>
-								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html">NOBLESS</a>
+								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html"></a>
+								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html"></a>
+								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html"></a>
+								<a href="file:///D:/sublime_workspace/bouquet/bouquet_sel.html"></a>
 							</div>
 						</li>
 						<div class="nav_search">
 							<input type="search" name="search">
-							<a href="#"><i class="fas fa-search"></i></a>
+							<a><i class="fas fa-search"></i></a>
 						</div>
 					</ul>
 				</div>

@@ -16,6 +16,7 @@ public class RemovePlayAction implements Action {
 	@Override
 	public ActionForward excute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		// 첨부파일 삭제
 		int bno = Integer.parseInt(request.getParameter("bno"));
 		String filename = request.getParameter("filename");

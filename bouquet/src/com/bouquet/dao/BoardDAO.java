@@ -155,6 +155,18 @@ public class BoardDAO {
 		}
 		return result;
 	}
+
+	public int modify(BoardDTO bDto) {
+		sqlSession = sqlSessionFactory.openSession(true);
+		try {
+			result = sqlSession.update("modify", bDto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return result;
+	}
 	
 	
 	

@@ -29,6 +29,7 @@ import com.bouquet.action.LoginAjaxAction;
 import com.bouquet.action.LoginOutAction;
 import com.bouquet.action.MemberAction;
 import com.bouquet.action.MemberPlayAction;
+import com.bouquet.action.ModifyPlayAction;
 import com.bouquet.action.PwCheckAction;
 import com.bouquet.action.PwUpdateAction;
 import com.bouquet.action.PwUpdatePlayAction;
@@ -158,8 +159,10 @@ public class FrontController extends HttpServlet {
 		} else if(command.equals("/updateView.bouquet")) {
 			action = new UpdateViewAction();
 			forward = action.excute(request, response);
+		} else if(command.equals("/modifyPlay.bouquet")) {
+			action = new ModifyPlayAction();
+			forward = action.excute(request, response);
 		}
-		
 		
 		if(forward != null) {
 			if(forward.isRedirect()) {
